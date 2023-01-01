@@ -1,6 +1,6 @@
 from pytest import fixture
 
-from pages import Header, MainPage, RegistrationPage
+from pages import Header, MainPage, RegistrationPage, RegistrationSuccessPage
 
 # ------------------------------------------------- Фикстуры страниц ------------------------------------------------- #
 
@@ -18,5 +18,10 @@ def header(browser):
 @fixture(scope='function')
 def registration_page(browser):
     return RegistrationPage(browser)
+
+
+@fixture(scope='function')
+def registration_success_page(browser):
+    return RegistrationSuccessPage(browser)
 
 # -------------------------------------- Фикстуры для генерации тестовых данных -------------------------------------- #
