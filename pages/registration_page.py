@@ -85,3 +85,20 @@ class RegistrationPage(BasePage):
         """
 
         self.find_element_clickable(*Locators.REGISTER_BUTTON).click()
+
+    @step('Проверить, что появилось сообщение об ошибке: {expected_error_message}')
+    def can_see_error_message_with_text(self, expected_error_message: str) -> None:
+        """
+        Проверка отображения сообщения об ошибке.
+
+        :param expected_error_message: ожидаемый текст ошибки.
+        """
+
+        with step('Проверить, что сообщение об ошибке появилось'):
+            assert self.is_element_visible(*Locators.ERROR_MESSAGE), 'Не появилось сообщение об ошибке'
+
+        with step('Проверить текст сообщения'):
+            actual_error_message = self.find_element(*Locators.ERROR_MESSAGE).text
+            assert actual_error_message == expected_error_message, \
+                f'Текущее сообщение об ошибке: {actual_error_message} ' \
+                f'не соответствует ожидаемому: {expected_error_message}'

@@ -13,3 +13,4 @@ class RegistrationPageLocators:
     PASSWORD_FIELD = (By.ID, 'Password')
     CONFIRM_PASSWORD_FIELD = (By.ID, 'ConfirmPassword')
     REGISTER_BUTTON = (By.ID, 'register-button')
+    ERROR_MESSAGE = (By.CSS_SELECTOR, '.field-validation-error')
