@@ -1,0 +1,7 @@
+pytest==7.2.0
+selenium==4.7.2
+allure-pytest==2.12.0
+flake8==5.0.4
+mimesis==6.1.1
+pytest-xdist==3.1.0
+webdriver-manager==3.8.5
