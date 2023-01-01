@@ -1,0 +1,10 @@
+repos:
+-   repo: 'https://github.com/PyCQA/flake8'
+    rev: 4.0.1
+    hooks:
+    -   id: flake8
+        additional_dependencies:
+            - flake8-isort
+            - flake8-quotes
+            - flake8-commas
+            - flake8-bugbear
