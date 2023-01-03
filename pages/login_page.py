@@ -52,3 +52,22 @@ class LoginPage(BasePage):
         """
 
         self.find_element_clickable(*Locators.LOGIN_BUTTON).click()
+
+    @step('Проверить, что появилось сообщение об ошибке: {error_message}')
+    def can_see_error_message_with_text(self, error_message: str) -> None:
+        """
+        Проверка появления сообщения об ошибке.
+
+        :param error_message: текст ошибки.
+        """
+
+        expected_error_message = f'Login was unsuccessful. Please correct the errors and try again.\n{error_message}'
+
+        with step('Проверить, что сообщение об ошибке появилось'):
+            assert self.is_element_visible(*Locators.ERROR_MESSAGE), 'Не появилось сообщение об ошибке'
+
+        with step('Проверить текст сообщения'):
+            actual_error_message = self.find_element(*Locators.ERROR_MESSAGE).text
+            assert actual_error_message == expected_error_message, \
+                f'Текущее сообщение об ошибке: {actual_error_message} ' \
+                f'не соответствует ожидаемому: {expected_error_message}'
