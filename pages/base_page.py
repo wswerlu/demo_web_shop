@@ -2,6 +2,7 @@ from typing import List
 
 from allure import attach, attachment_type
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as ec
@@ -295,3 +296,11 @@ class BasePage:
 
         assert actual_current_url == expected_current_url, \
             f'Текущий url: {actual_current_url} не совпадает с ожидаемым: {expected_current_url}'
+
+    def hover(self, element) -> None:
+        """
+        Ховер на элемент.
+
+        :param element: элемент, на который нужно навести курсор.
+        """
+        ActionChains(self.driver).move_to_element(element).perform()
