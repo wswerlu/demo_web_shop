@@ -7,3 +7,4 @@ class HeaderLocators:
     """
 
     REGISTER_LINK = (By.CSS_SELECTOR, 'a.ico-register')
+    LOGOUT_LINK = (By.CSS_SELECTOR, 'a.ico-logout')

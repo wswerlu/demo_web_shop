@@ -20,3 +20,11 @@ class Header(BasePage):
         """
 
         self.find_element(*Locators.REGISTER_LINK).click()
+
+    @step('Выйти из профиля пользователя')
+    def logout_user(self) -> None:
+        """
+        Выход из профиля пользователя.
+        """
+
+        self.find_element(*Locators.LOGOUT_LINK).click()
