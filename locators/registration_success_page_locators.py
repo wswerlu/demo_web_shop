@@ -6,4 +6,4 @@ class RegistrationSuccessPageLocators:
     Локаторы для страницы подтверждения регистрации.
     """
 
-    CONFIRM_MESSAGE = (By.CSS_SELECTOR, '.result')
+    CONFIRM_MESSAGE = (By.CSS_SELECTOR, 'div.result')
