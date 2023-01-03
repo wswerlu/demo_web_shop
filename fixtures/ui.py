@@ -60,3 +60,21 @@ def create_user(header, registration_page, main_page):
         'email': email,
         'password': password,
     }
+
+
+@fixture(scope='function')
+def login_user(header, login_page, main_page, create_user):
+    main_page.open()
+    header.go_to_login_page()
+    login_page.fill_login_form(
+        email=create_user['email'],
+        password=create_user['password'],
+    )
+    login_page.click_on_login_button()
+
+    return {
+        'firstname': create_user['firstname'],
+        'lastname': create_user['lastname'],
+        'email': create_user['email'],
+        'password': create_user['password'],
+    }
