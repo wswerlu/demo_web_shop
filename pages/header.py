@@ -1,3 +1,5 @@
+from random import choice
+
 from allure import step
 
 from locators import HeaderLocators as Locators
@@ -47,3 +49,28 @@ class Header(BasePage):
 
         assert self.is_element_present(strategy, locator.format(email)), \
             f'В хедере не отображается email: {email}'
+
+    @step('Кликнуть по произвольной категории')
+    def click_on_random_category_and_get_its_name(self) -> str:
+        """
+        Клик по произвольной категории с получением имени категории, по которой был произведен клик.
+
+        :return: название категории, по которой был произведен клик.
+        """
+
+        category = choice(self.find_elements(*Locators.CATEGORIES))
+
+        if self.is_element_present_in_element(category, *Locators.SUBLIST_FIRST_LEVEL, timeout=2):
+            self.hover(category)
+
+            sublist_categories = self.find_elements_in_element(category, *Locators.SUBLIST_CATEGORIES)
+            sublist_category = choice([x for x in sublist_categories if x.text != 'Camera, photo'])
+            sublist_category_name = sublist_category.text
+            sublist_category.click()
+
+            return sublist_category_name
+
+        category_name = category.text
+        category.click()
+
+        return category_name
