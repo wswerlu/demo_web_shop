@@ -74,3 +74,25 @@ class Header(BasePage):
         category.click()
 
         return category_name
+
+    @step('Проверить, что в хедере отображается количество товара в корзине')
+    def can_see_product_quantity_in_basket(self, expected_quantity: int = 1) -> None:
+        """
+        Проверка того, что в хедере отображается количество товара в корзине.
+
+        :param expected_quantity: ожидаемое количество товара в корзине.
+        """
+
+        actual_quantity = self.find_element(*Locators.PRODUCT_QUANTITY_IN_CART).text[1:-1]
+
+        assert int(actual_quantity) == expected_quantity, \
+            f'Текущее значение количества товара в корзине: {actual_quantity} ' \
+            f'не соответствует ожидаемому: {expected_quantity}'
+
+    @step('Перейти на страницу корзины')
+    def go_to_cart_page(self) -> None:
+        """
+        Переход на страницу корзины.
+        """
+
+        self.find_element(*Locators.CART_LINK).click()

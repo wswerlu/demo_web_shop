@@ -13,3 +13,5 @@ class HeaderLocators:
     CATEGORIES = (By.CSS_SELECTOR, 'ul.top-menu > li')
     SUBLIST_FIRST_LEVEL = (By.CSS_SELECTOR, 'ul.sublist.firstLevel')
     SUBLIST_CATEGORIES = (By.CSS_SELECTOR, 'ul.sublist.firstLevel a')
+    PRODUCT_QUANTITY_IN_CART = (By.CSS_SELECTOR, 'a.ico-cart span.cart-qty')
+    CART_LINK = (By.CSS_SELECTOR, 'a.ico-cart')
