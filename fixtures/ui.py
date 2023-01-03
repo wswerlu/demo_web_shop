@@ -1,7 +1,7 @@
 from pytest import fixture
 
-from pages import (CatalogPage, Header, LoginPage, MainPage, ProductCardPage,
-                   RegistrationPage, RegistrationSuccessPage)
+from pages import (CartPage, CatalogPage, Header, LoginPage, MainPage,
+                   ProductCardPage, RegistrationPage, RegistrationSuccessPage)
 from utils.generated_test_data import UserData
 
 # ------------------------------------------------- Фикстуры страниц ------------------------------------------------- #
@@ -40,6 +40,11 @@ def catalog_page(browser):
 @fixture(scope='function')
 def product_card_page(browser):
     return ProductCardPage(browser)
+
+
+@fixture(scope='function')
+def cart_page(browser):
+    return CartPage(browser)
 
 # -------------------------------------- Фикстуры для генерации тестовых данных -------------------------------------- #
 
