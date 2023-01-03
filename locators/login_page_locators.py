@@ -11,3 +11,4 @@ class LoginPageLocators:
     PASSWORD_FIELD = (By.ID, 'Password')
     REMEMBER_ME = (By.ID, 'RememberMe')
     LOGIN_BUTTON = (By.CSS_SELECTOR, 'input.login-button')
+    ERROR_MESSAGE = (By.CSS_SELECTOR, 'div.validation-summary-errors')
