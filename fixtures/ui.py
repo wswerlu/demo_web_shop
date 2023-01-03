@@ -51,6 +51,10 @@ def cart_page(browser):
 
 @fixture(scope='function')
 def create_user(header, registration_page, main_page):
+    """
+    Создание пользователя.
+    """
+
     user = UserData()
     firstname = user.firstname()
     lastname = user.lastname()
@@ -79,6 +83,10 @@ def create_user(header, registration_page, main_page):
 
 @fixture(scope='function')
 def login_user(header, login_page, main_page, create_user):
+    """
+    Авторизация пользователя.
+    """
+
     main_page.open()
     header.go_to_login_page()
     login_page.fill_login_form(
