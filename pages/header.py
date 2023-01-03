@@ -13,10 +13,10 @@ class Header(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    @step('Перейти в корзину')
+    @step('Перейти на страницу регистрации')
     def go_to_register_page(self) -> None:
         """
-        Переход в корзину.
+        Переход на страницу регистрации.
         """
 
         self.find_element(*Locators.REGISTER_LINK).click()
