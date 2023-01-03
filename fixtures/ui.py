@@ -1,6 +1,6 @@
 from pytest import fixture
 
-from pages import (Header, LoginPage, MainPage, RegistrationPage,
+from pages import (CatalogPage, Header, LoginPage, MainPage, RegistrationPage,
                    RegistrationSuccessPage)
 from utils.generated_test_data import UserData
 
@@ -30,6 +30,11 @@ def registration_success_page(browser):
 @fixture(scope='function')
 def login_page(browser):
     return LoginPage(browser)
+
+
+@fixture(scope='function')
+def catalog_page(browser):
+    return CatalogPage(browser)
 
 # -------------------------------------- Фикстуры для генерации тестовых данных -------------------------------------- #
 
