@@ -25,7 +25,7 @@ class TestCart:
 
         product_card_page.add_product_to_cart()
         product_card_page.should_be_message_about_adding_product_to_cart()
-        header.can_see_product_quantity_in_basket()
+        header.can_see_product_quantity_in_cart()
         header.go_to_cart_page()
 
         cart_page.should_be_open_cart_page()

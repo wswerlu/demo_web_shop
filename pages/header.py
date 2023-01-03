@@ -76,7 +76,7 @@ class Header(BasePage):
         return category_name
 
     @step('Проверить, что в хедере отображается количество товара в корзине')
-    def can_see_product_quantity_in_basket(self, expected_quantity: int = 1) -> None:
+    def can_see_product_quantity_in_cart(self, expected_quantity: int = 1) -> None:
         """
         Проверка того, что в хедере отображается количество товара в корзине.
 
