@@ -49,4 +49,4 @@ def pytest_generate_tests(metafunc):
 
 
 def load_from_module(module, data):
-    return getattr(import_module(f'data.parametrization.{module}'), data)
+    return getattr(import_module(f'data.parameterization.{module}'), data)
