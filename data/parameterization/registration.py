@@ -20,4 +20,4 @@ emptyfields = [
      'Password is required.', 'Empty password and confirm password fields'],
     [user_data['gender'], user_data['firstname'], user_data['lastname'], user_data['email'],
      user_data['password'], '', 'Password is required.', 'Empty confirm password fields'],
-]  # данные для теста test_registration_user_with_empty_fields
+]  # данные для теста test_registration_user_with_empty_field
