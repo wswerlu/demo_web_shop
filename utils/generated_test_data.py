@@ -1,6 +1,6 @@
 from random import choice
 
-from mimesis import Person
+from mimesis import Person, Text
 
 
 class UserData:
@@ -38,3 +38,15 @@ class UserData:
         Генерация пола.
         """
         return choice(['Male', 'Female', None])
+
+
+class TextData:
+
+    def __init__(self):
+        self.text = Text('ru')
+
+    def sentence(self):
+        """
+        Генерация предложения.
+        """
+        return self.text.sentence()
