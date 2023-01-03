@@ -1,3 +1,4 @@
+from .cart_page_locators import CartPageLocators
 from .catalog_page_locators import CatalogPageLocators
 from .header_locators import HeaderLocators
 from .login_page_locators import LoginPageLocators

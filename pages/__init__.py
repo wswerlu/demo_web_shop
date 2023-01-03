@@ -1,3 +1,4 @@
+from .cart_page import CartPage
 from .catalog_page import CatalogPage
 from .header import Header
 from .login_page import LoginPage
