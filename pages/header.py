@@ -28,3 +28,22 @@ class Header(BasePage):
         """
 
         self.find_element(*Locators.LOGOUT_LINK).click()
+
+    @step('Перейти на страницу авторизации')
+    def go_to_login_page(self) -> None:
+        """
+        Переход на страницу авторизации.
+        """
+
+        self.find_element(*Locators.LOGIN_LINK).click()
+
+    @step('Проверить, что в хедере отображается email: {email}')
+    def can_see_user_email(self, email: str) -> None:
+        """
+        Проверка того, что в хедере отображается указанный email.
+        """
+
+        strategy, locator = Locators.ACCOUNT_LINK
+
+        assert self.is_element_present(strategy, locator.format(email)), \
+            f'В хедере не отображается email: {email}'
