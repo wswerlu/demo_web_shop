@@ -30,3 +30,12 @@ class TestCart:
 
         cart_page.should_be_open_cart_page()
         cart_page.should_be_product_in_cart(product_names=product['name'])
+
+    @title('Товар отображается во всплывающей корзине')
+    def test_product_in_flyout_cart(self, main_page, header, add_product_to_cart_unauthorized_user):
+        product_name = add_product_to_cart_unauthorized_user()[0]['name']
+
+        main_page.open()
+        main_page.should_be_open_main_page()
+
+        header.can_see_product_in_flyout_cart(product_names=product_name)
