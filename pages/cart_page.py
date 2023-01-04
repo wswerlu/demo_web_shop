@@ -65,3 +65,32 @@ class CartPage(BasePage):
 
         for product_name in product_names:
             assert product_name in product_names_in_cart, f'В корзине нет товара "{product_name}"'
+
+    @step('Удалить товар "{product_name}" из корзины')
+    def remove_product_from_cart(self, product_name: str) -> None:
+        """
+        Удаление указанного товара из корзины.
+
+        :param product_name: наименование товара, который необходимо удалить из корзины.
+        """
+
+        with step(f'Активировать чекбокс "Remove" у товара: {product_name}'):
+            strategy, locator = Locators.REMOVE_PRODUCT_BY_NAME
+            self.find_element(strategy, locator.format(product_name)).click()
+
+        with step('Кликнуть по кнопке "Update shopping cart"'):
+            self.find_element_clickable(*Locators.UPDATE_SHOPPING_CART_BUTTON).click()
+
+    @step('Проверить, что корзина пустая')
+    def should_be_empty_cart(self) -> None:
+        """
+        Проверка того, что корзина пустая.
+        """
+
+        with step('Проверить отсутствие товаров в корзине'):
+            assert self.is_not_element_present(*Locators.PRODUCTS), 'В корзине есть товары'
+
+        with step('Проверить наличие сообщения о том, что корзина пустая'):
+            message = self.find_element(*Locators.EMPTY_CART_MESSAGE).text
+            assert message == 'Your Shopping Cart is empty!', \
+                f'Текущий текст сообщения: {message} не соответствует ожидаемому: Your Shopping Cart is empty!'
