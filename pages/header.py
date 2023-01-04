@@ -96,3 +96,47 @@ class Header(BasePage):
         """
 
         self.find_element(*Locators.CART_LINK).click()
+
+    def get_products_in_flyout_cart(self) -> list:
+        """
+        Получение товаров во всплывающей корзине.
+        """
+
+        flyout_cart = self.find_element(*Locators.CART_LINK)
+        self.hover(flyout_cart)
+
+        products = self.find_visible_elements(*Locators.PRODUCTS_IN_FLYOUT_CART)
+
+        products_list = []
+
+        for product in products:
+
+            name = self.find_element_in_element(product, *Locators.PRODUCT_NAME_IN_FLYOUT_CART).text
+            price = self.find_element_in_element(product, *Locators.PRODUCT_PRICE_IN_FLYOUT_CART).text
+            quantity = self.find_element_in_element(product, *Locators.PRODUCT_QUANTITY_IN_FLYOUT_CART).text
+
+            products_list.append(
+                {
+                    'name': name,
+                    'price': float(price),
+                    'quantity': int(quantity),
+                },
+            )
+
+        return products_list
+
+    @step('Проверить, что товар отображается во всплывающей корзине')
+    def can_see_product_in_flyout_cart(self, product_names: str | list) -> None:
+        """
+        Проверка того, что товар отображается во всплывающей корзине.
+
+        :param product_names: наименования товаров, которые должны быть в корзине.
+        """
+
+        if not isinstance(product_names, list):
+            product_names = [product_names]
+
+        product_names_in_cart = [x['name'] for x in self.get_products_in_flyout_cart()]
+
+        for product_name in product_names:
+            assert product_name in product_names_in_cart, f'В корзине нет товара "{product_name}"'

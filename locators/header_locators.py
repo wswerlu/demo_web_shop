@@ -15,3 +15,7 @@ class HeaderLocators:
     SUBLIST_CATEGORIES = (By.CSS_SELECTOR, 'ul.sublist.firstLevel a')
     PRODUCT_QUANTITY_IN_CART = (By.CSS_SELECTOR, 'a.ico-cart span.cart-qty')
     CART_LINK = (By.CSS_SELECTOR, 'a.ico-cart')
+    PRODUCTS_IN_FLYOUT_CART = (By.CSS_SELECTOR, 'div.mini-shopping-cart div.item')
+    PRODUCT_NAME_IN_FLYOUT_CART = (By.CSS_SELECTOR, 'div.name')
+    PRODUCT_PRICE_IN_FLYOUT_CART = (By.CSS_SELECTOR, 'div.price span')
+    PRODUCT_QUANTITY_IN_FLYOUT_CART = (By.CSS_SELECTOR, 'div.quantity span')
