@@ -1,5 +1,8 @@
+from random import choice
+
 from pytest import fixture
 
+from data.data import PRODUCTS_WITHOUT_ATTRIBUTES
 from pages import (CartPage, CatalogPage, Header, LoginPage, MainPage,
                    ProductCardPage, RegistrationPage, RegistrationSuccessPage)
 from utils.generated_test_data import UserData
@@ -51,6 +54,10 @@ def cart_page(browser):
 
 @fixture(scope='function')
 def create_user(header, registration_page, main_page):
+    """
+    Создание пользователя.
+    """
+
     user = UserData()
     firstname = user.firstname()
     lastname = user.lastname()
@@ -79,6 +86,10 @@ def create_user(header, registration_page, main_page):
 
 @fixture(scope='function')
 def login_user(header, login_page, main_page, create_user):
+    """
+    Авторизация пользователя.
+    """
+
     main_page.open()
     header.go_to_login_page()
     login_page.fill_login_form(
@@ -93,3 +104,30 @@ def login_user(header, login_page, main_page, create_user):
         'email': create_user['email'],
         'password': create_user['password'],
     }
+
+
+@fixture(scope='function')
+def add_product_to_cart_unauthorized_user(product_card_page):
+    """
+    Добавление товара в корзину неавторизованным пользователем.
+    """
+
+    def wrapper(quantity_of_products: int = 1, product_quantity: int = 1):
+        """
+        :param quantity_of_products: количество товаров необходимое для теста.
+        :param product_quantity: количество 1 товара необходимое для теста.
+        """
+
+        products_list = []
+
+        for _ in range(quantity_of_products):
+            product_card_page.open(path=choice(PRODUCTS_WITHOUT_ATTRIBUTES))
+            product = product_card_page.get_product_data()
+            products_list.append(product)
+
+            product_card_page.add_product_to_cart(quantity=product_quantity)
+            product_card_page.should_be_message_about_adding_product_to_cart()
+
+        return products_list
+
+    return wrapper
