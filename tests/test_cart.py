@@ -39,3 +39,14 @@ class TestCart:
         main_page.should_be_open_main_page()
 
         header.can_see_product_in_flyout_cart(product_names=product_name)
+
+    @title('Удаление товара из корзины')
+    def test_remove_product_from_cart(self, main_page, header, cart_page, add_product_to_cart_unauthorized_user):
+        product_name = add_product_to_cart_unauthorized_user()[0]['name']
+
+        header.go_to_cart_page()
+        cart_page.should_be_open_cart_page()
+        cart_page.should_be_product_in_cart(product_names=product_name)
+
+        cart_page.remove_product_from_cart(product_name=product_name)
+        cart_page.should_be_empty_cart()
