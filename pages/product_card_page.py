@@ -103,3 +103,28 @@ class ProductCardPage(BasePage):
             actual_message_text = self.find_visible_element(*Locators.MESSAGE_ABOUT_ADDING_PRODUCT_TO_CART).text.strip()
             assert actual_message_text.strip() == expected_message_text, \
                 f'Текущий текст сообщения: {actual_message_text} не соответствует ожидаемому: {expected_message_text}'
+
+    def get_product_data(self) -> dict:
+        """
+        Получение данных по товару.
+        """
+
+        _id = self.find_element(*Locators.PRODUCT_QUANTITY).get_attribute('value')
+        name = self.find_element(*Locators.PRODUCT_NAME).text
+        short_description = self.find_element(*Locators.PRODUCT_NAME).text
+        full_description = self.find_element(*Locators.PRODUCT_NAME).text
+        price = self.find_element(*Locators.PRODUCT_PRICE).text
+
+        if self.is_element_present(*Locators.PRODUCT_OLD_PRICE):
+            old_price = self.find_element(*Locators.PRODUCT_OLD_PRICE).text
+        else:
+            old_price = None
+
+        return {
+            'id': _id,
+            'name': name,
+            'short_description': short_description,
+            'full_description': full_description,
+            'old_price': float(old_price) if old_price else None,
+            'price': float(price),
+        }
