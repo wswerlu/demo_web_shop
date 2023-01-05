@@ -1,5 +1,6 @@
 from .cart_page import CartPage
 from .catalog_page import CatalogPage
+from .checkout_page import CheckoutPage
 from .header import Header
 from .login_page import LoginPage
 from .main_page import MainPage

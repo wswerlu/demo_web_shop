@@ -1,6 +1,8 @@
 from random import choice
 
-from mimesis import Person, Text
+from mimesis import Address, Payment, Person, Text
+
+from data.data import CREDIT_CARD_TYPE
 
 
 class UserData:
@@ -39,6 +41,12 @@ class UserData:
         """
         return choice(['Male', 'Female', None])
 
+    def phone(self):
+        """
+        Генерация номера телефона.
+        """
+        return self.person.telephone(mask='+7##########')
+
 
 class TextData:
 
@@ -50,3 +58,54 @@ class TextData:
         Генерация предложения.
         """
         return self.text.sentence()
+
+
+class AddressData:
+
+    def __init__(self):
+        self.address = Address('ru')
+
+    def city(self) -> str:
+        """
+        Генерация города.
+        """
+        return self.address.city()
+
+    def full_address(self) -> str:
+        """
+        Генерация полного адреса.
+        """
+        return self.address.address()
+
+    def postal_code(self) -> str:
+        """
+        Генерация почтового индекса.
+        """
+        return self.address.postal_code()
+
+
+class PaymentData:
+
+    def __init__(self):
+        self.payment = Payment()
+        self.person = Person('en')
+
+    def cardholder_name(self) -> str:
+        """
+        Генерация имени держателя карты.
+        """
+        return self.person.full_name()
+
+    def card_number(self, card_type: str) -> str:
+        """
+        Генерация номера карты.
+
+        :param card_type: тип карты. Допустимые значения: Visa, Master сard, Amex, Discover.
+        """
+        return self.payment.credit_card_number(card_type=CREDIT_CARD_TYPE[card_type])
+
+    def card_code(self) -> str:
+        """
+        Генерация CVV кода карты.
+        """
+        return self.payment.cvv()
