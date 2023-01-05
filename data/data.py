@@ -1,3 +1,5 @@
+from mimesis.enums import CardType
+
 PRODUCTS_WITHOUT_ATTRIBUTES = [
     'computing-and-internet',
     'fiction',
@@ -17,3 +19,10 @@ PRODUCTS_WITHOUT_ATTRIBUTES = [
     'music-2',
     'black-white-diamond-heart',
 ]
+
+CREDIT_CARD_TYPE = {
+    'Visa': CardType.VISA,
+    'Master card': CardType.MASTER_CARD,
+    'Amex': CardType.AMERICAN_EXPRESS,
+    'Discover': None,
+}

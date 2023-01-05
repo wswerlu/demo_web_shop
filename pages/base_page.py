@@ -284,6 +284,19 @@ class BasePage:
         field.clear()
         field.send_keys(value)
 
+    def is_change_url_to_path(self, path, timeout=5):
+        """
+        Проверка открытия страницы.
+
+        :param path: эндпоинт страницы.
+        :param timeout: время ожидания.
+        """
+        try:
+            WebDriverWait(self.driver, timeout).until(ec.url_to_be(self.base_url + path))
+        except TimeoutException:
+            return False
+        return True
+
     def should_be_open_page_by_path(self, path) -> None:
         """
         Проверка открытия страницы.
@@ -291,10 +304,11 @@ class BasePage:
         :param path: эндпоинт страницы.
         """
 
+        # получение текущего и ожидаемого url`ов страницы, для понятного отображения ошибки
         actual_current_url = self.driver.current_url
         expected_current_url = self.base_url + path
 
-        assert actual_current_url == expected_current_url, \
+        assert self.is_change_url_to_path(path=path), \
             f'Текущий url: {actual_current_url} не совпадает с ожидаемым: {expected_current_url}'
 
     def hover(self, element) -> None:

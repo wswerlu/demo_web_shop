@@ -94,3 +94,19 @@ class CartPage(BasePage):
             message = self.find_element(*Locators.EMPTY_CART_MESSAGE).text
             assert message == 'Your Shopping Cart is empty!', \
                 f'Текущий текст сообщения: {message} не соответствует ожидаемому: Your Shopping Cart is empty!'
+
+    @step('Подтвердить согласие с условиями обслуживания')
+    def agree_to_terms_of_service(self) -> None:
+        """
+        Подтверждение согласия с условиями обслуживания.
+        """
+
+        self.find_element(*Locators.THERMS_OF_SERVICE_CHECKBOX).click()
+
+    @step('Кликнуть по кнопке "Checkout"')
+    def click_on_checkout_button(self) -> None:
+        """
+        Клик по кнопке "Checkout".
+        """
+
+        self.find_element_clickable(*Locators.CHECKOUT_BUTTON).click()

@@ -1,5 +1,7 @@
 from .cart_page_locators import CartPageLocators
 from .catalog_page_locators import CatalogPageLocators
+from .checkout_completed_page_locators import CheckoutCompletedPageLocators
+from .checkout_page_locators import CheckoutPageLocators
 from .header_locators import HeaderLocators
 from .login_page_locators import LoginPageLocators
 from .main_page_locators import MainPageLocators

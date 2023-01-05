@@ -14,3 +14,5 @@ class CartPageLocators:
     REMOVE_PRODUCT_BY_NAME = (By.XPATH, ".//a[text()='{0}']/../..//input[@name='removefromcart']")
     UPDATE_SHOPPING_CART_BUTTON = (By.CSS_SELECTOR, 'input.update-cart-button')
     EMPTY_CART_MESSAGE = (By.CSS_SELECTOR, 'div.order-summary-content')
+    THERMS_OF_SERVICE_CHECKBOX = (By.ID, 'termsofservice')
+    CHECKOUT_BUTTON = (By.ID, 'checkout')
