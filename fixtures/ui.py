@@ -3,9 +3,9 @@ from random import choice
 from pytest import fixture
 
 from data.data import PRODUCTS_WITHOUT_ATTRIBUTES
-from pages import (CartPage, CatalogPage, CheckoutPage, Header, LoginPage,
-                   MainPage, ProductCardPage, RegistrationPage,
-                   RegistrationSuccessPage)
+from pages import (CartPage, CatalogPage, CheckoutCompletedPage, CheckoutPage,
+                   Header, LoginPage, MainPage, ProductCardPage,
+                   RegistrationPage, RegistrationSuccessPage)
 from utils.generated_test_data import UserData
 
 # ------------------------------------------------- Фикстуры страниц ------------------------------------------------- #
@@ -54,6 +54,11 @@ def cart_page(browser):
 @fixture(scope='function')
 def checkout_page(browser):
     return CheckoutPage(browser)
+
+
+@fixture(scope='function')
+def checkout_completed_page(browser):
+    return CheckoutCompletedPage(browser)
 
 # -------------------------------------- Фикстуры для генерации тестовых данных -------------------------------------- #
 
