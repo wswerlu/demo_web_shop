@@ -35,9 +35,6 @@ class TestCart:
     def test_product_in_flyout_cart(self, main_page, header, add_product_to_cart_unauthorized_user):
         product_name = add_product_to_cart_unauthorized_user()[0]['name']
 
-        main_page.open()
-        main_page.should_be_open_main_page()
-
         header.can_see_product_in_flyout_cart(product_names=product_name)
 
     @title('Удаление товара из корзины')
