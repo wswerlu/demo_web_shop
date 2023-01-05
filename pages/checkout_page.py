@@ -33,7 +33,9 @@ class CheckoutPage(BasePage):
     @step('Заполнить форму адреса выставления счета')
     def fill_billing_address_form(self, country: str | None = None, state: str | None = None, city: str | None = None,
                                   full_address: str | None = None, zip_code: str | None = None,
-                                  phone: str | None = None, is_random: bool = True) -> None:
+                                  phone: str | None = None, is_random: bool = True, is_new_user: bool = False,
+                                  firstname: str | None = None, lastname: str | None = None,
+                                  email: str | None = None) -> None:
         """
         Заполнение формы адреса выставления счета указанными данными.
 
@@ -45,6 +47,11 @@ class CheckoutPage(BasePage):
         :param phone: телефон пользователя.
         :param is_random: True — нужны произвольные данные (остальные параметры указывать не надо,
          в этом случае страной по умолчанию будет: Russia), False — нужны конкретные данные.
+        :param is_new_user: True — нужно заполнить поля: "First name", "Last name", "Email",
+         False — не нужно заполнять эти поля.
+        :param firstname: имя.
+        :param lastname: фамилия.
+        :param email: email.
         """
 
         if is_random:
@@ -53,6 +60,24 @@ class CheckoutPage(BasePage):
             full_address = self.address.full_address()
             zip_code = self.address.postal_code()
             phone = self.user.phone()
+
+            if is_new_user:
+                firstname = self.user.firstname()
+                lastname = self.user.lastname()
+                email = self.user.email()
+
+        if is_new_user:
+            with step(f'Заполнить поле "First name" значением: {firstname}'):
+                firstname_field = self.find_element(*Locators.BILLING_FIRSTNAME)
+                self.send_keys(field=firstname_field, value=firstname)
+
+            with step(f'Заполнить поле "Last name" значением: {lastname}'):
+                lastname_field = self.find_element(*Locators.BILLING_LASTNAME)
+                self.send_keys(field=lastname_field, value=lastname)
+
+            with step(f'Заполнить поле "Email" значением: {email}'):
+                email_field = self.find_element(*Locators.BILLING_EMAIL)
+                self.send_keys(field=email_field, value=email)
 
         with step(f'Выбрать страну: {country}'):
             self.find_element(*Locators.BILLING_COUNTRY_LIST).click()
@@ -83,10 +108,6 @@ class CheckoutPage(BasePage):
             phone_field = self.find_element(*Locators.BILLING_PHONE)
             self.send_keys(field=phone_field, value=phone)
 
-        with step(f'Заполнить поле "Phone number" значением: {phone}'):
-            phone_field = self.find_element(*Locators.BILLING_PHONE)
-            self.send_keys(field=phone_field, value=phone)
-
         with step('Кликнуть по кнопке "Continue"'):
             self.find_element_clickable(*Locators.BILLING_CONTINUE_BUTTON).click()
 
@@ -94,7 +115,9 @@ class CheckoutPage(BasePage):
     def fill_shipping_address_form(self, is_billing_address: bool = True, is_pick_up: bool = False,
                                    country: str | None = None, state: str | None = None, city: str | None = None,
                                    full_address: str | None = None, zip_code: str | None = None,
-                                   phone: str | None = None, is_random: bool = True) -> None:
+                                   phone: str | None = None, is_random: bool = True, is_new_user: bool = False,
+                                   firstname: str | None = None, lastname: str | None = None,
+                                   email: str | None = None) -> None:
         """
         Заполнение формы адреса доставки указанными данными.
 
@@ -109,6 +132,11 @@ class CheckoutPage(BasePage):
         :param phone: телефон пользователя.
         :param is_random: True — нужны произвольные данные (остальные параметры указывать не надо,
          в этом случае страной по умолчанию будет: Russia), False — нужны конкретные данные.
+        :param is_new_user: True — нужно заполнить поля: "First name", "Last name", "Email",
+         False — не нужно заполнять эти поля.
+        :param firstname: имя.
+        :param lastname: фамилия.
+        :param email: email.
         """
 
         if self.is_element_present(*Locators.STEP_SHIPPING, timeout=0):
@@ -124,11 +152,29 @@ class CheckoutPage(BasePage):
                         zip_code = self.address.postal_code()
                         phone = self.user.phone()
 
+                        if is_new_user:
+                            firstname = self.user.firstname()
+                            lastname = self.user.lastname()
+                            email = self.user.email()
+
                     with step('Выбрать адрес: New address'):
                         self.find_element(*Locators.SHIPPING_ADDRESS_LIST).click()
 
                         strategy, locator = Locators.SHIPPING_ADDRESS_LIST_OPTION_BY_NAME
                         self.find_element(strategy, locator.format('New Address')).click()
+
+                    if is_new_user:
+                        with step(f'Заполнить поле "First name" значением: {firstname}'):
+                            firstname_field = self.find_element(*Locators.SHIPPING_FIRSTNAME)
+                            self.send_keys(field=firstname_field, value=firstname)
+
+                        with step(f'Заполнить поле "Last name" значением: {lastname}'):
+                            lastname_field = self.find_element(*Locators.SHIPPING_LASTNAME)
+                            self.send_keys(field=lastname_field, value=lastname)
+
+                        with step(f'Заполнить поле "Email" значением: {email}'):
+                            email_field = self.find_element(*Locators.SHIPPING_EMAIL)
+                            self.send_keys(field=email_field, value=email)
 
                     with step(f'Выбрать страну: {country}'):
                         self.find_element(*Locators.SHIPPING_COUNTRY_LIST).click()
@@ -154,10 +200,6 @@ class CheckoutPage(BasePage):
                     with step(f'Заполнить поле "Zip / postal code" значением: {zip_code}'):
                         zip_code_field = self.find_element(*Locators.SHIPPING_ZIP_CODE)
                         self.send_keys(field=zip_code_field, value=zip_code)
-
-                    with step(f'Заполнить поле "Phone number" значением: {phone}'):
-                        phone_field = self.find_element(*Locators.SHIPPING_PHONE)
-                        self.send_keys(field=phone_field, value=phone)
 
                     with step(f'Заполнить поле "Phone number" значением: {phone}'):
                         phone_field = self.find_element(*Locators.SHIPPING_PHONE)

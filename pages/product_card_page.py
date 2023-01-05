@@ -79,7 +79,7 @@ class ProductCardPage(BasePage):
                 giftcard_message = self.find_element(*Locators.GIFTCARD_MESSAGE)
                 self.send_keys(giftcard_message, text.sentence())
 
-        with step('Указать количество товара: {quantity}'):
+        with step(f'Указать количество товара: {quantity}'):
 
             quantity_field = self.find_element(*Locators.PRODUCT_QUANTITY)
             self.send_keys(quantity_field, quantity)

@@ -31,3 +31,28 @@ class TestOrder:
 
         checkout_completed_page.should_be_open_checkout_completed_page()
         checkout_completed_page.can_see_message_about_successfully_creating_order()
+
+    @title('Создание заказа c самовывозом неавторизованным пользователем')
+    def test_create_order_with_pick_up_by_guest(self, header, cart_page, checkout_as_guest_page, checkout_page,
+                                                checkout_completed_page, add_product_to_cart_by_unauthorized_user):
+        product_name = add_product_to_cart_by_unauthorized_user()[0]['name']
+
+        header.go_to_cart_page()
+        cart_page.should_be_open_cart_page()
+        cart_page.should_be_product_in_cart(product_names=product_name)
+
+        cart_page.agree_to_terms_of_service()
+        cart_page.click_on_checkout_button()
+        checkout_as_guest_page.should_be_open_checkout_as_guest_page()
+
+        checkout_as_guest_page.click_on_checkout_as_guest_button()
+        checkout_page.should_be_open_checkout_page()
+
+        checkout_page.fill_billing_address_form(is_new_user=True)
+        checkout_page.fill_shipping_address_form(is_pick_up=True)
+        checkout_page.choose_payment_method()
+        checkout_page.fill_payment_information()
+        checkout_page.confirm_order()
+
+        checkout_completed_page.should_be_open_checkout_completed_page()
+        checkout_completed_page.can_see_message_about_successfully_creating_order()
