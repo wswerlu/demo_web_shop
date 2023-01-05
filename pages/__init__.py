@@ -1,5 +1,6 @@
 from .cart_page import CartPage
 from .catalog_page import CatalogPage
+from .checkout_as_guest_page import CheckoutAsGuestPage
 from .checkout_completed_page import CheckoutCompletedPage
 from .checkout_page import CheckoutPage
 from .header import Header
