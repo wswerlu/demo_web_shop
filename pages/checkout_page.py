@@ -83,10 +83,6 @@ class CheckoutPage(BasePage):
             phone_field = self.find_element(*Locators.BILLING_PHONE)
             self.send_keys(field=phone_field, value=phone)
 
-        with step(f'Заполнить поле "Phone number" значением: {phone}'):
-            phone_field = self.find_element(*Locators.BILLING_PHONE)
-            self.send_keys(field=phone_field, value=phone)
-
         with step('Кликнуть по кнопке "Continue"'):
             self.find_element_clickable(*Locators.BILLING_CONTINUE_BUTTON).click()
 
@@ -154,10 +150,6 @@ class CheckoutPage(BasePage):
                     with step(f'Заполнить поле "Zip / postal code" значением: {zip_code}'):
                         zip_code_field = self.find_element(*Locators.SHIPPING_ZIP_CODE)
                         self.send_keys(field=zip_code_field, value=zip_code)
-
-                    with step(f'Заполнить поле "Phone number" значением: {phone}'):
-                        phone_field = self.find_element(*Locators.SHIPPING_PHONE)
-                        self.send_keys(field=phone_field, value=phone)
 
                     with step(f'Заполнить поле "Phone number" значением: {phone}'):
                         phone_field = self.find_element(*Locators.SHIPPING_PHONE)
