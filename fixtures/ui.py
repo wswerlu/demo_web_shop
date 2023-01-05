@@ -107,7 +107,7 @@ def login_user(header, login_page, main_page, create_user):
 
 
 @fixture(scope='function')
-def add_product_to_cart_unauthorized_user(product_card_page):
+def add_product_to_cart_by_unauthorized_user(product_card_page):
     """
     Добавление товара в корзину неавторизованным пользователем.
     """
