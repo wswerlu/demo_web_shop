@@ -1,11 +1,10 @@
 from datetime import datetime
 from random import choice, randrange
 
-from allure import step
-
 from data.data import CREDIT_CARD_TYPE
 from locators import CheckoutPageLocators as Locators
 from utils.generated_test_data import AddressData, PaymentData, UserData
+from utils.steps import step
 
 from .base_page import BasePage
 

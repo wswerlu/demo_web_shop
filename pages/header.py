@@ -1,8 +1,7 @@
 from random import choice
 
-from allure import step
-
 from locators import HeaderLocators as Locators
+from utils.steps import step
 
 from .base_page import BasePage
 
