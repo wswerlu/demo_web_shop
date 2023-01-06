@@ -1,6 +1,5 @@
 from typing import List
 
-from allure import attach, attachment_type
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.alert import Alert
@@ -46,15 +45,6 @@ class BasePage:
         :param element: элемент, до которого нужно проскроллить страницу.
         """
         self.driver.execute_script('return arguments[0].scrollIntoView(true);', element)
-
-    def attach_screenshot_to_allure_report(self) -> None:
-        """
-        Прикрепить скриншот к отчету аллюр.
-        """
-        attach(
-            body=self.driver.get_screenshot_as_png(),
-            attachment_type=attachment_type.PNG,
-        )
 
     def is_element_present(self, strategy, locator, timeout=5) -> bool:
         """
@@ -146,7 +136,6 @@ class BasePage:
         try:
             return WebDriverWait(self.driver, timeout).until(ec.presence_of_element_located((strategy, locator)))
         except TimeoutException:
-            self.attach_screenshot_to_allure_report()
             raise AssertionError(f'В течение {timeout} секунд не был найден элемент с локатором: {(strategy, locator)}')
 
     def find_elements(self, strategy, locator, timeout=5) -> List[WebElement]:
@@ -161,7 +150,6 @@ class BasePage:
         try:
             return WebDriverWait(self.driver, timeout).until(ec.presence_of_all_elements_located((strategy, locator)))
         except TimeoutException:
-            self.attach_screenshot_to_allure_report()
             raise AssertionError(
                 f'В течение {timeout} секунд не были найдены элементы с локатором: {(strategy, locator)}',
             )
@@ -178,7 +166,6 @@ class BasePage:
         try:
             return WebDriverWait(self.driver, timeout).until(ec.visibility_of_element_located((strategy, locator)))
         except TimeoutException:
-            self.attach_screenshot_to_allure_report()
             raise AssertionError(
                 f'В течение {timeout} секунд не отображался элемент с локатором: {(strategy, locator)}',
             )
@@ -195,7 +182,6 @@ class BasePage:
         try:
             return WebDriverWait(self.driver, timeout).until(ec.visibility_of_all_elements_located((strategy, locator)))
         except TimeoutException:
-            self.attach_screenshot_to_allure_report()
             raise AssertionError(
                 f'В течение {timeout} секунд не отображались элементы с локатором: {(strategy, locator)}',
             )
@@ -212,7 +198,6 @@ class BasePage:
         try:
             return WebDriverWait(self.driver, timeout).until(ec.element_to_be_clickable((strategy, locator)))
         except TimeoutException:
-            self.attach_screenshot_to_allure_report()
             raise AssertionError(
                 f'В течение {timeout} секунд не был доступен для клика элемент с локатором: {(strategy, locator)}',
             )
@@ -232,7 +217,6 @@ class BasePage:
                 oec.presence_element_in_element_located(element, strategy, locator),
             )
         except TimeoutException:
-            self.attach_screenshot_to_allure_report()
             raise AssertionError(
                 f'В течение {timeout} секунд не был найден элемент с локатором: {(strategy, locator)} '
                 f'внутри элемента: {element}',
@@ -253,7 +237,6 @@ class BasePage:
                 oec.presence_elements_in_element_located(element, strategy, locator),
             )
         except TimeoutException:
-            self.attach_screenshot_to_allure_report()
             raise AssertionError(
                 f'В течение {timeout} секунд не были найдены элементы с локатором: {(strategy, locator)} '
                 f'внутри элемента: {element}',
@@ -269,7 +252,6 @@ class BasePage:
         try:
             return WebDriverWait(self.driver, timeout).until(ec.alert_is_present())
         except TimeoutException:
-            self.attach_screenshot_to_allure_report()
             raise AssertionError(f'В течение {timeout} секунд не появился алерт')
 
     @staticmethod
