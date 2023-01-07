@@ -14,3 +14,5 @@ class CatalogPageLocators:
     PRODUCT_OLD_PRICE = (By.CSS_SELECTOR, 'div.prices span.old-price')
     GO_TO_PRODUCT_CARD_BY_ID = (By.CSS_SELECTOR, "div[data-productid='{0}'] a")
     ADD_TO_CART_BUTTON = (By.CSS_SELECTOR, 'input.product-box-add-to-cart-button')
+    SORT_METHOD_LIST = (By.ID, 'products-orderby')
+    SORT_METHOD_LIST_OPTION_BY_NAME = (By.XPATH, ".//select[@id='products-orderby']//option[text()='{0}']")
