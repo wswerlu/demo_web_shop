@@ -116,7 +116,7 @@ class CatalogPage(BasePage):
     @step('Проверить сортировку товаров по алфавиту')
     def should_be_sort_by_alphabet(self, is_reverse: bool = False) -> None:
         """
-        Сортировка товаров.
+        Проверка сортировки товаров по алфавиту.
 
         :param is_reverse: True — товары должны быть отсортированы по убыванию, False — по возрастанию.
         """
