@@ -27,3 +27,4 @@ class ProductCardPageLocators:
     PRODUCT_FULL_DESCRIPTION = (By.CSS_SELECTOR, 'div.full-description')
     PRODUCT_OLD_PRICE = (By.CSS_SELECTOR, 'div.old-product-price span')
     PRODUCT_PRICE = (By.CSS_SELECTOR, 'div.product-price span')
+    ADD_TO_CART_WISHLIST = (By.CSS_SELECTOR, 'input.add-to-wishlist-button')

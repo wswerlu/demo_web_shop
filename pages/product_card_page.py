@@ -146,3 +146,31 @@ class ProductCardPage(BasePage):
             'old_price': float(old_price) if old_price else None,
             'price': float(price),
         }
+
+    @step('Добавить товар в вишлист')
+    def add_product_to_wishlist(self, quantity: int = 1, is_new_sender: bool = False) -> None:
+        """
+        Добавление товара в вишлист.
+
+        :param quantity: количество товара, которое необходимо добавить в вишлист.
+        :param is_new_sender: True — необходимо заполнить поля "Your name",
+         "Your email", False — эти поля заполнять не нужно
+          (параметр актуален при добавлении в вишлист подарочной карты).
+        """
+
+        if self.is_element_present(*Locators.ATTRIBUTES_BLOCK, timeout=0):
+
+            self.fill_attributes_block()
+
+        elif self.is_element_present(*Locators.GIFTCARD_ATTRIBUTES_BLOCK, timeout=0):
+
+            self.fill_gift_card_form(is_new_sender=is_new_sender)
+
+        with step(f'Указать количество товара: {quantity}'):
+
+            quantity_field = self.find_element(*Locators.PRODUCT_QUANTITY)
+            self.send_keys(quantity_field, quantity)
+
+        with step('Кликнуть по кнопке "Add to wishlist"'):
+
+            self.find_element_clickable(*Locators.ADD_TO_CART_WISHLIST).click()
