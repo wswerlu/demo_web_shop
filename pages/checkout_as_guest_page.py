@@ -1,6 +1,5 @@
-from allure import step
-
 from locators import CheckoutAsGuestPageLocators as Locators
+from utils.steps import step
 
 from .base_page import BasePage
 

@@ -9,6 +9,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Remove old allure report data
+        run: |
+          git config --global user.email "popovpn7@gmail.com"
+          git config --global user.name "Petr Popov"
+          git fetch
+          git checkout gh-pages
+          git rm -r allure-report
+          git commit -m "Remove old allure report data"
+          git push
+          git checkout $env:GITHUB_REF_NAME
+
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
@@ -31,7 +42,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
-        run: pytest --alluredir allure-results -n 4
+        run: pytest --alluredir allure-results -n 4 --reruns 1 --reruns-delay 5
 
       - name: Generate allure report
         run: ~\scoop\apps\allure\2.20.1\bin\allure.bat generate allure-results
@@ -39,10 +50,8 @@ jobs:
 
       - name: Push allure report to branch gh-pages
         run: |
-          git config --global user.email "popovpn7@gmail.com"
-          git config --global user.name "Petr Popov"
-          git fetch
           git checkout gh-pages
           git add allure-report/
           git commit -m "Add allure-report"
           git push
+        if: always()

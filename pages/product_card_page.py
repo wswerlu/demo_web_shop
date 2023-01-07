@@ -1,9 +1,8 @@
 from random import choice
 
-from allure import step
-
 from locators import ProductCardPageLocators as Locators
 from utils.generated_test_data import TextData, UserData
+from utils.steps import step
 
 from .base_page import BasePage
 

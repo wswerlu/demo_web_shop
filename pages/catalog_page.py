@@ -1,8 +1,7 @@
 from re import sub
 
-from allure import step
-
 from locators import CatalogPageLocators as Locators
+from utils.steps import step
 
 from .base_page import BasePage
 

@@ -1,6 +1,5 @@
-from allure import step
-
 from locators import RegistrationSuccessPageLocators as Locators
+from utils.steps import step
 
 from .base_page import BasePage
 
