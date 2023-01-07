@@ -9,3 +9,4 @@ from .main_page import MainPage
 from .product_card_page import ProductCardPage
 from .registration_page import RegistrationPage
 from .registration_success_page import RegistrationSuccessPage
+from .wishlist_page import WishlistPage
