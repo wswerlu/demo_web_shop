@@ -2,7 +2,8 @@ from random import choice
 
 from pytest import fixture
 
-from data.data import PRODUCTS_WITHOUT_ATTRIBUTES
+from data.data import (PRODUCTS_WHO_CAN_ADD_TO_WISHLIST,
+                       PRODUCTS_WITHOUT_ATTRIBUTES)
 from pages import (CartPage, CatalogPage, CheckoutAsGuestPage,
                    CheckoutCompletedPage, CheckoutPage, Header, LoginPage,
                    MainPage, ProductCardPage, RegistrationPage,
@@ -181,5 +182,32 @@ def add_product_to_cart_by_authorized_user(product_card_page, login_user):
             'products': products_list,
             'user': login_user,
         }
+
+    return wrapper
+
+
+@fixture(scope='function')
+def add_product_to_wishlist_by_unauthorized_user(product_card_page):
+    """
+    Добавление товара в вишлист неавторизованным пользователем.
+    """
+
+    def wrapper(quantity_of_products: int = 1, product_quantity: int = 1):
+        """
+        :param quantity_of_products: количество товаров необходимое для теста.
+        :param product_quantity: количество 1 товара необходимое для теста.
+        """
+
+        products_list = []
+
+        for _ in range(quantity_of_products):
+            product_card_page.open(path=choice(PRODUCTS_WHO_CAN_ADD_TO_WISHLIST))
+            product = product_card_page.get_product_data()
+            products_list.append(product)
+
+            product_card_page.add_product_to_wishlist(quantity=product_quantity)
+            product_card_page.should_be_message_about_adding_product_to_wishlist()
+
+        return products_list
 
     return wrapper
