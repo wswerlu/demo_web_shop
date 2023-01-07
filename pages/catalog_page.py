@@ -99,3 +99,35 @@ class CatalogPage(BasePage):
 
         product = self.find_element(strategy, locator.format(product_id))
         product.click()
+
+    @step('Отсортировать товары по: {method}')
+    def sort_by(self, method: str) -> None:
+        """
+        Сортировка товаров.
+
+        :param method: признак, по которому нужно отсортировать товары.
+        """
+
+        self.find_element(*Locators.SORT_METHOD_LIST).click()
+
+        strategy, locator = Locators.SORT_METHOD_LIST_OPTION_BY_NAME
+        self.find_element(strategy, locator.format(method)).click()
+
+    @step('Проверить сортировку товаров по алфавиту')
+    def should_be_sort_by_alphabet(self, is_reverse: bool = False) -> None:
+        """
+        Сортировка товаров.
+
+        :param is_reverse: True — товары должны быть отсортированы по убыванию, False — по возрастанию.
+        """
+
+        actually_sorted_products = self.get_products()
+        expected_sorted_products = sorted(
+            actually_sorted_products,
+            key=lambda x: x['name'],
+            reverse=is_reverse,
+        )
+
+        for index in range(len(actually_sorted_products)):
+            assert actually_sorted_products[index]['name'] == expected_sorted_products[index]['name'], \
+                f'Товар с наименованием {actually_sorted_products[index]["name"]} отсортирован неверно'
