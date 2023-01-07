@@ -28,3 +28,14 @@ class TestCart:
 
         wishlist_page.should_be_open_wishlist_page()
         wishlist_page.should_be_product_in_wishlist(product_names=product['name'])
+
+    @title('Удаление товара из вишлиста')
+    def test_remove_product_from_wishlist(self, header, wishlist_page, add_product_to_wishlist_by_unauthorized_user):
+        product_name = add_product_to_wishlist_by_unauthorized_user()[0]['name']
+
+        header.go_to_wishlist_page()
+        wishlist_page.should_be_open_wishlist_page()
+        wishlist_page.should_be_product_in_wishlist(product_names=product_name)
+
+        wishlist_page.remove_product_from_wishlist(product_name=product_name)
+        wishlist_page.should_be_empty_wishlist()
