@@ -183,3 +183,13 @@ class ProductCardPage(BasePage):
             actual_message_text = self.find_visible_element(*Locators.MESSAGE_ABOUT_ADDING_PRODUCT).text.strip()
             assert actual_message_text.strip() == expected_message_text, \
                 f'Текущий текст сообщения: {actual_message_text} не соответствует ожидаемому: {expected_message_text}'
+
+    @step('Проверить, что появилось сообщение о добавлении товара в вишлист')
+    def should_be_message_about_adding_product_to_wishlist(self) -> None:
+        """
+        Проверка появления сообщения о добавлении товара в корзину.
+        """
+
+        expected_message_text = 'The product has been added to your wishlist'
+
+        self.should_be_message_about_adding_product(expected_message_text=expected_message_text)
