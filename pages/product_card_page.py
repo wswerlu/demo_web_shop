@@ -112,15 +112,9 @@ class ProductCardPage(BasePage):
         Проверка появления сообщения о добавлении товара в корзину.
         """
 
-        with step('Проверить, что сообщение появилось'):
-            assert self.is_element_visible(*Locators.MESSAGE_ABOUT_ADDING_PRODUCT_TO_CART), \
-                'Не появилось сообщение о добавлении товара в корзину'
+        expected_message_text = 'The product has been added to your shopping cart'
 
-        with step('Проверить текст сообщения'):
-            expected_message_text = 'The product has been added to your shopping cart'
-            actual_message_text = self.find_visible_element(*Locators.MESSAGE_ABOUT_ADDING_PRODUCT_TO_CART).text.strip()
-            assert actual_message_text.strip() == expected_message_text, \
-                f'Текущий текст сообщения: {actual_message_text} не соответствует ожидаемому: {expected_message_text}'
+        self.should_be_message_about_adding_product(expected_message_text=expected_message_text)
 
     def get_product_data(self) -> dict:
         """
@@ -174,3 +168,18 @@ class ProductCardPage(BasePage):
         with step('Кликнуть по кнопке "Add to wishlist"'):
 
             self.find_element_clickable(*Locators.ADD_TO_CART_WISHLIST).click()
+
+    def should_be_message_about_adding_product(self, expected_message_text: str):
+        """
+        Проверка появления сообщения о добавлении товара.
+
+        :param expected_message_text: ожидаемый текст сообщения.
+        """
+
+        with step('Проверить, что сообщение появилось'):
+            assert self.is_element_visible(*Locators.MESSAGE_ABOUT_ADDING_PRODUCT), 'Сообщение не появилось'
+
+        with step('Проверить текст сообщения'):
+            actual_message_text = self.find_visible_element(*Locators.MESSAGE_ABOUT_ADDING_PRODUCT).text.strip()
+            assert actual_message_text.strip() == expected_message_text, \
+                f'Текущий текст сообщения: {actual_message_text} не соответствует ожидаемому: {expected_message_text}'

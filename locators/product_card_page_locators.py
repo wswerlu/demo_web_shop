@@ -20,7 +20,7 @@ class ProductCardPageLocators:
     GIFTCARD_MESSAGE = (By.CSS_SELECTOR, 'textarea.message')
     PRODUCT_QUANTITY = (By.CSS_SELECTOR, 'input.qty-input')
     ADD_TO_CART_BUTTON = (By.CSS_SELECTOR, 'input.add-to-cart-button')
-    MESSAGE_ABOUT_ADDING_PRODUCT_TO_CART = (By.ID, 'bar-notification')
+    MESSAGE_ABOUT_ADDING_PRODUCT = (By.ID, 'bar-notification')
     PRODUCT_ID = (By.CSS_SELECTOR, 'div[data-productid]')
     PRODUCT_NAME = (By.CSS_SELECTOR, 'div.product-name')
     PRODUCT_SHORT_DESCRIPTION = (By.CSS_SELECTOR, 'div.short-description')
