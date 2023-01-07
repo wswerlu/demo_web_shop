@@ -64,3 +64,32 @@ class WishlistPage(BasePage):
 
         for product_name in product_names:
             assert product_name in product_names_in_cart, f'В вишлисте нет товара "{product_name}"'
+
+    @step('Удалить товар "{product_name}" из вишлиста')
+    def remove_product_from_wishlist(self, product_name: str) -> None:
+        """
+        Удаление указанного товара из вишлиста.
+
+        :param product_name: наименование товара, который необходимо удалить из вишлиста.
+        """
+
+        with step(f'Активировать чекбокс "Remove" у товара: {product_name}'):
+            strategy, locator = Locators.REMOVE_PRODUCT_BY_NAME
+            self.find_element(strategy, locator.format(product_name)).click()
+
+        with step('Кликнуть по кнопке "Update wishlist"'):
+            self.find_element_clickable(*Locators.UPDATE_WISHLIST_BUTTON).click()
+
+    @step('Проверить, что вишлист пустой')
+    def should_be_empty_wishlist(self) -> None:
+        """
+        Проверка того, что вишлист пустой.
+        """
+
+        with step('Проверить отсутствие товаров в корзине'):
+            assert self.is_not_element_present(*Locators.PRODUCTS), 'В корзине есть товары'
+
+        with step('Проверить наличие сообщения о том, что корзина пустая'):
+            message = self.find_element(*Locators.EMPTY_WISHLIST_MESSAGE).text
+            assert message == 'The wishlist is empty!', \
+                f'Текущий текст сообщения: {message} не соответствует ожидаемому: The wishlist is empty!'
