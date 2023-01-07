@@ -14,3 +14,5 @@ class WishlistPageLocators:
     REMOVE_PRODUCT_BY_NAME = (By.XPATH, ".//a[text()='{0}']/../..//input[@name='removefromcart']")
     UPDATE_WISHLIST_BUTTON = (By.CSS_SELECTOR, 'input.update-wishlist-button')
     EMPTY_WISHLIST_MESSAGE = (By.CSS_SELECTOR, 'div.wishlist-content')
+    ADD_TO_CART_PRODUCT_BY_NAME = (By.XPATH, ".//a[text()='{0}']/../..//input[@name='addtocart']")
+    ADD_TO_CART_BUTTON = (By.CSS_SELECTOR, 'input.wishlist-add-to-cart-button')

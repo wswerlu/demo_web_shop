@@ -47,3 +47,18 @@ class TestCart:
 
         cart_page.remove_product_from_cart(product_name=product_name)
         cart_page.should_be_empty_cart()
+
+    @title('Добавление товара в корзину из вишлиста')
+    def test_add_product_to_cart_from_wishlist(self, header, cart_page, wishlist_page,
+                                               add_product_to_wishlist_by_unauthorized_user):
+        product_name = add_product_to_wishlist_by_unauthorized_user()[0]['name']
+
+        header.go_to_wishlist_page()
+        wishlist_page.should_be_open_wishlist_page()
+        wishlist_page.should_be_product_in_wishlist(product_names=product_name)
+
+        wishlist_page.add_product_to_cart(product_name=product_name)
+        cart_page.should_be_open_cart_page()
+
+        header.can_see_product_quantity_in_wishlist(expected_quantity=0)
+        cart_page.should_be_product_in_cart(product_names=product_name)

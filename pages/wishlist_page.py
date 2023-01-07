@@ -93,3 +93,18 @@ class WishlistPage(BasePage):
             message = self.find_element(*Locators.EMPTY_WISHLIST_MESSAGE).text
             assert message == 'The wishlist is empty!', \
                 f'Текущий текст сообщения: {message} не соответствует ожидаемому: The wishlist is empty!'
+
+    @step('Добавить товар "{product_name}" в корзину')
+    def add_product_to_cart(self, product_name: str) -> None:
+        """
+        Добавление указанного товара в корзину.
+
+        :param product_name: наименование товара, который необходимо добавить в корзину.
+        """
+
+        with step(f'Активировать чекбокс "Add to cart" у товара: {product_name}'):
+            strategy, locator = Locators.ADD_TO_CART_PRODUCT_BY_NAME
+            self.find_element(strategy, locator.format(product_name)).click()
+
+        with step('Кликнуть по кнопке "Add to cart"'):
+            self.find_element_clickable(*Locators.ADD_TO_CART_BUTTON).click()
