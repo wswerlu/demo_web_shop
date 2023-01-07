@@ -139,3 +139,25 @@ class Header(BasePage):
 
         for product_name in product_names:
             assert product_name in product_names_in_cart, f'В корзине нет товара "{product_name}"'
+
+    @step('Проверить, что в хедере отображается количество товара в вишлисте')
+    def can_see_product_quantity_in_wishlist(self, expected_quantity: int = 1) -> None:
+        """
+        Проверка того, что в хедере отображается количество товара в корзине.
+
+        :param expected_quantity: ожидаемое количество товара в вишлисте.
+        """
+
+        actual_quantity = self.find_element(*Locators.PRODUCT_QUANTITY_IN_WISHLIST).text[1:-1]
+
+        assert int(actual_quantity) == expected_quantity, \
+            f'Текущее значение количества товара в корзине: {actual_quantity} ' \
+            f'не соответствует ожидаемому: {expected_quantity}'
+
+    @step('Перейти на страницу вишлиста')
+    def go_to_wishlist_page(self) -> None:
+        """
+        Переход на страницу корзины.
+        """
+
+        self.find_element(*Locators.WISHLIST_LINK).click()

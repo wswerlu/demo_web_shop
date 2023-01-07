@@ -19,3 +19,5 @@ class HeaderLocators:
     PRODUCT_NAME_IN_FLYOUT_CART = (By.CSS_SELECTOR, 'div.name')
     PRODUCT_PRICE_IN_FLYOUT_CART = (By.CSS_SELECTOR, 'div.price span')
     PRODUCT_QUANTITY_IN_FLYOUT_CART = (By.CSS_SELECTOR, 'div.quantity span')
+    PRODUCT_QUANTITY_IN_WISHLIST = (By.CSS_SELECTOR, 'a.ico-wishlist span.wishlist-qty')
+    WISHLIST_LINK = (By.CSS_SELECTOR, 'a.ico-wishlist')
