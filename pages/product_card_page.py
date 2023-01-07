@@ -26,57 +26,23 @@ class ProductCardPage(BasePage):
         self.should_be_open_page_by_path(path=path)
 
     @step('Добавить товар в корзину')
-    def add_product_to_cart(self, quantity: int = 1) -> None:
+    def add_product_to_cart(self, quantity: int = 1, is_new_sender: bool = False) -> None:
         """
         Добавление товара в корзину.
 
         :param quantity: количество товара, которое необходимо добавить в корзину.
+        :param is_new_sender: True — необходимо заполнить поля "Your name",
+         "Your email", False — эти поля заполнять не нужно
+          (параметр актуален при добавлении в корзину подарочной карты).
         """
-
-        user = UserData()
-        text = TextData()
 
         if self.is_element_present(*Locators.ATTRIBUTES_BLOCK, timeout=0):
 
-            with step('Заполнить поля c атрибутами товара'):
-
-                attributes = self.find_elements(*Locators.ATTRIBUTES)
-
-                for attribute in attributes:
-
-                    if self.is_element_present_in_element(attribute, *Locators.RADIO_BUTTON, timeout=0):
-                        radio_buttons = self.find_elements_in_element(attribute, *Locators.RADIO_BUTTON)
-                        choice(radio_buttons).click()
-
-                    elif self.is_element_present_in_element(attribute, *Locators.CHECKBOX, timeout=0):
-                        checkboxes = self.find_elements_in_element(attribute, *Locators.CHECKBOX)
-                        choice(checkboxes).click()
-
-                    elif self.is_element_present_in_element(attribute, *Locators.SELECT_ELEMENT, timeout=0):
-                        self.find_element_in_element(attribute, *Locators.SELECT_ELEMENT).click()
-                        options = self.find_elements_in_element(attribute, *Locators.SELECT_OPTION)
-                        choice(options).click()
+            self.fill_attributes_block()
 
         elif self.is_element_present(*Locators.GIFTCARD_ATTRIBUTES_BLOCK, timeout=0):
 
-            with step('Заполнить данные подарочной карты'):
-
-                recipient_name = self.find_element(*Locators.RECIPIENT_NAME)
-                self.send_keys(recipient_name, user.firstname())
-
-                if self.is_element_present(*Locators.RECIPIENT_EMAIL, timeout=0):
-                    recipient_email = self.find_element(*Locators.RECIPIENT_EMAIL)
-                    self.send_keys(recipient_email, user.email())
-
-                sender_name = self.find_element(*Locators.SENDER_NAME)
-                self.send_keys(sender_name, user.firstname())
-
-                if self.is_element_present(*Locators.SENDER_EMAIL, timeout=0):
-                    sender_email = self.find_element(*Locators.SENDER_EMAIL)
-                    self.send_keys(sender_email, user.email())
-
-                giftcard_message = self.find_element(*Locators.GIFTCARD_MESSAGE)
-                self.send_keys(giftcard_message, text.sentence())
+            self.fill_gift_card_form(is_new_sender=is_new_sender)
 
         with step(f'Указать количество товара: {quantity}'):
 
@@ -86,6 +52,59 @@ class ProductCardPage(BasePage):
         with step('Кликнуть по кнопке "Add to cart"'):
 
             self.find_element_clickable(*Locators.ADD_TO_CART_BUTTON).click()
+
+    @step('Заполнить поля c атрибутами товара')
+    def fill_attributes_block(self):
+        """
+        Заполнение полей с атрибутами товара.
+        """
+
+        attributes = self.find_elements(*Locators.ATTRIBUTES)
+
+        for attribute in attributes:
+
+            if self.is_element_present_in_element(attribute, *Locators.RADIO_BUTTON, timeout=0):
+                radio_buttons = self.find_elements_in_element(attribute, *Locators.RADIO_BUTTON)
+                choice(radio_buttons).click()
+
+            elif self.is_element_present_in_element(attribute, *Locators.CHECKBOX, timeout=0):
+                checkboxes = self.find_elements_in_element(attribute, *Locators.CHECKBOX)
+                choice(checkboxes).click()
+
+            elif self.is_element_present_in_element(attribute, *Locators.SELECT_ELEMENT, timeout=0):
+                self.find_element_in_element(attribute, *Locators.SELECT_ELEMENT).click()
+                options = self.find_elements_in_element(attribute, *Locators.SELECT_OPTION)
+                choice(options).click()
+
+    @step('Заполнить данные подарочной карты')
+    def fill_gift_card_form(self, is_new_sender: bool = False):
+        """
+        Заполнение данных подарочной карты.
+
+        :param is_new_sender: True — необходимо заполнить поля "Your name",
+         "Your email", False — эти поля заполнять не нужно.
+        """
+
+        user = UserData()
+        text = TextData()
+
+        recipient_name = self.find_element(*Locators.RECIPIENT_NAME)
+        self.send_keys(recipient_name, user.firstname())
+
+        if self.is_element_present(*Locators.RECIPIENT_EMAIL, timeout=0):
+            recipient_email = self.find_element(*Locators.RECIPIENT_EMAIL)
+            self.send_keys(recipient_email, user.email())
+
+        if is_new_sender:
+            sender_name = self.find_element(*Locators.SENDER_NAME)
+            self.send_keys(sender_name, user.firstname())
+
+            if self.is_element_present(*Locators.SENDER_EMAIL, timeout=0):
+                sender_email = self.find_element(*Locators.SENDER_EMAIL)
+                self.send_keys(sender_email, user.email())
+
+        gift_card_message = self.find_element(*Locators.GIFTCARD_MESSAGE)
+        self.send_keys(gift_card_message, text.sentence())
 
     @step('Проверить, что появилось сообщение о добавлении товара в корзину')
     def should_be_message_about_adding_product_to_cart(self) -> None:
