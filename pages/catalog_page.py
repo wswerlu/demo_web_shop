@@ -151,3 +151,29 @@ class CatalogPage(BasePage):
         for index in range(len(actually_sorted_products)):
             assert actually_sorted_products[index]['actual_price'] == expected_sorted_products[index]['actual_price'], \
                 f'Товар с наименованием {actually_sorted_products[index]["name"]} отсортирован неверно'
+
+    @step('Выбрать размер страницы: {page_size}')
+    def choose_page_size(self, page_size: int) -> None:
+        """
+        Выбор размера страницы.
+
+        :param page_size: размер страницы.
+        """
+
+        self.find_element(*Locators.PAGE_SIZE_LIST).click()
+
+        strategy, locator = Locators.PAGE_SIZE_LIST_OPTION_BY_NAME
+        self.find_element(strategy, locator.format(page_size)).click()
+
+    @step('Проверить количество товаров отображаемых на странице')
+    def should_be_number_of_products_displayed_per_page(self, page_size: int) -> None:
+        """
+        Проверка количества товаров отображаемых на странице.
+
+        :param page_size: размер страницы.
+        """
+
+        number_of_products = len(self.find_elements(*Locators.PRODUCTS))
+
+        assert number_of_products <= page_size, \
+            f'Товаров на странице: {number_of_products} больше, чем размер страницы: {page_size}'

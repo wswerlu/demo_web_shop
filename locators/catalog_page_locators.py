@@ -16,3 +16,5 @@ class CatalogPageLocators:
     ADD_TO_CART_BUTTON = (By.CSS_SELECTOR, 'input.product-box-add-to-cart-button')
     SORT_METHOD_LIST = (By.ID, 'products-orderby')
     SORT_METHOD_LIST_OPTION_BY_NAME = (By.XPATH, ".//select[@id='products-orderby']//option[text()='{0}']")
+    PAGE_SIZE_LIST = (By.ID, 'products-pagesize')
+    PAGE_SIZE_LIST_OPTION_BY_NAME = (By.XPATH, ".//select[@id='products-pagesize']//option[text()='{0}']")
