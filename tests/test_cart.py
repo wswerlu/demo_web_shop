@@ -12,7 +12,8 @@ class TestCart:
 
     @title('Добавление товара в корзину из карточки заказа авторизованным пользователем')
     def test_add_product_to_cart_from_product_card_by_authorized_user(self, main_page, header, catalog_page,
-                                                                      product_card_page, cart_page, login_user):
+                                                                      product_card_page, cart_page, notification_bar,
+                                                                      login_user):
         main_page.open()
         main_page.should_be_open_main_page()
 
@@ -24,7 +25,7 @@ class TestCart:
         product_card_page.should_be_open_product_card_page(path=product['path'])
 
         product_card_page.add_product_to_cart()
-        product_card_page.should_be_message_about_adding_product_to_cart()
+        notification_bar.should_be_message_about_adding_product_to_cart()
         header.can_see_product_quantity_in_cart()
         header.go_to_cart_page()
 
