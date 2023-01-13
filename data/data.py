@@ -1,5 +1,17 @@
 from mimesis.enums import CardType
 
+CATEGORIES_WITH_PRODUCTS_WHO_CAN_ADD_TO_CART = [
+    'Books',
+    'Desktops',
+    'Notebooks',
+    'Accessories',
+    'Cell phones',
+    'Apparel & Shoes',
+    'Digital downloads',
+    'Jewelry',
+    'Gift Cards',
+]
+
 PRODUCTS_WITHOUT_ATTRIBUTES = [
     'computing-and-internet',
     'fiction',
