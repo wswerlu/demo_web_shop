@@ -12,6 +12,7 @@ class ProductCardPageLocators:
     SELECT_ELEMENT = (By.CSS_SELECTOR, 'select')
     SELECT_OPTION = (By.CSS_SELECTOR, 'option')
     CHECKBOX = (By.CSS_SELECTOR, "input[type='checkbox']")
+    TEXT_FIELD = (By.CSS_SELECTOR, "input[type='text']")
     GIFTCARD_ATTRIBUTES_BLOCK = (By.CSS_SELECTOR, 'div.product-essential div.giftcard')
     RECIPIENT_NAME = (By.CSS_SELECTOR, 'input.recipient-name')
     RECIPIENT_EMAIL = (By.CSS_SELECTOR, 'input.recipient-email')

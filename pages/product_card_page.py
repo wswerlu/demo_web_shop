@@ -1,4 +1,4 @@
-from random import choice
+from random import choice, randint
 
 from locators import ProductCardPageLocators as Locators
 from utils.generated_test_data import TextData, UserData
@@ -75,6 +75,10 @@ class ProductCardPage(BasePage):
                 self.find_element_in_element(attribute, *Locators.SELECT_ELEMENT).click()
                 options = self.find_elements_in_element(attribute, *Locators.SELECT_OPTION)
                 choice(options).click()
+
+            elif self.is_element_present_in_element(attribute, *Locators.TEXT_FIELD, timeout=0):
+                text_field = self.find_element_in_element(attribute, *Locators.TEXT_FIELD)
+                self.send_keys(text_field, randint(1, 10))
 
     @step('Заполнить данные подарочной карты')
     def fill_gift_card_form(self, is_new_sender: bool = False):
