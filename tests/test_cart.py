@@ -2,6 +2,8 @@ from random import choice
 
 from allure import epic, feature, title
 
+from data.data import CATEGORIES_WITH_PRODUCTS_WHO_CAN_ADD_TO_CART
+
 
 @epic('Frontend')
 @feature('Корзина')
@@ -14,11 +16,10 @@ class TestCart:
     def test_add_product_to_cart_from_product_card_by_authorized_user(self, main_page, header, catalog_page,
                                                                       product_card_page, cart_page, notification_bar,
                                                                       login_user):
-        main_page.open()
-        main_page.should_be_open_main_page()
+        category_name = choice(CATEGORIES_WITH_PRODUCTS_WHO_CAN_ADD_TO_CART)
 
-        category_name = header.click_on_random_category_and_get_its_name()
-        catalog_page.should_be_open_catalog_page_by_title(category_name=category_name)
+        header.click_on_category_with_name(category_name=category_name)
+        catalog_page.should_be_open_catalog_page_by_title(expected_title=category_name)
 
         product = choice(catalog_page.get_available_products())
         catalog_page.go_to_product_card_page(product_id=product['id'])
