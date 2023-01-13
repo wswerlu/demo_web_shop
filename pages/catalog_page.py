@@ -192,5 +192,10 @@ class CatalogPage(BasePage):
 
         number_of_products = len(self.find_elements(*Locators.PRODUCTS))
 
+        # ------------- Scroll to center of page for screenshot ------------- #
+        body = self.find_element(*Locators.BODY)
+        self.scroll_to_element_center(body)
+        # ---------------------------------------------------------------- #
+
         assert number_of_products <= page_size, \
             f'Товаров на странице: {number_of_products} больше, чем размер страницы: {page_size}'
