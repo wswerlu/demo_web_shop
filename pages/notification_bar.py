@@ -20,10 +20,10 @@ class NotificationBar(BasePage):
         """
 
         with step('Проверить, что сообщение появилось'):
-            assert self.is_element_visible(*Locators.MESSAGE_ABOUT_ADDING_PRODUCT), 'Сообщение не появилось'
+            assert self.is_element_visible(*Locators.NOTIFICATION_ABOUT_ADDING_PRODUCT), 'Сообщение не появилось'
 
         with step('Проверить текст сообщения'):
-            actual_message_text = self.find_visible_element(*Locators.MESSAGE_ABOUT_ADDING_PRODUCT).text.strip()
+            actual_message_text = self.find_visible_element(*Locators.NOTIFICATION_ABOUT_ADDING_PRODUCT).text.strip()
             assert actual_message_text.strip() == expected_message_text, \
                 f'Текущий текст сообщения: {actual_message_text} не соответствует ожидаемому: {expected_message_text}'
 

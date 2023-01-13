@@ -6,4 +6,4 @@ class NotificationBarLocators:
     Локаторы для панели уведомлений.
     """
 
-    MESSAGE_ABOUT_ADDING_PRODUCT = (By.ID, 'bar-notification')
+    NOTIFICATION_ABOUT_ADDING_PRODUCT = (By.ID, 'bar-notification')
