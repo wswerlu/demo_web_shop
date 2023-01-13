@@ -44,7 +44,7 @@ class BasePage:
 
         :param element: элемент, до которого нужно проскроллить страницу.
         """
-        self.driver.execute_script('return arguments[0].scrollIntoView(true);', element)
+        self.driver.execute_script('arguments[0].scrollIntoView(false);', element)
 
     def is_element_present(self, strategy, locator, timeout=5) -> bool:
         """
