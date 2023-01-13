@@ -26,6 +26,7 @@ class TestCart:
 
         product_card_page.add_product_to_cart()
         notification_bar.should_be_message_about_adding_product_to_cart()
+        notification_bar.close_notification()
         header.can_see_product_quantity_in_cart()
         header.go_to_cart_page()
 

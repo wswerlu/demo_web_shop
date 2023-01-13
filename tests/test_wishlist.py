@@ -24,6 +24,7 @@ class TestCart:
 
         product_card_page.add_product_to_wishlist(is_new_sender=True)
         notification_bar.should_be_message_about_adding_product_to_wishlist()
+        notification_bar.close_notification()
         header.can_see_product_quantity_in_wishlist()
         header.go_to_wishlist_page()
 
