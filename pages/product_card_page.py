@@ -15,10 +15,10 @@ class ProductCardPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    @step('Проверить, что открыта страница авторизации')
+    @step('Проверить, что открыта страница карточки продукта')
     def should_be_open_product_card_page(self, path: str) -> None:
         """
-        Проверка открытия страницы авторизации.
+        Проверка открытия страницы карточки продукта.
 
         :param path: эндпоинт страницы карточки продукта.
         """
