@@ -14,18 +14,15 @@ class CatalogPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    @step('Проверить, что открыта страница каталога: {category_name}')
-    def should_be_open_catalog_page_by_title(self, category_name: str) -> None:
+    @step('Проверить, что открыта страница каталога: {expected_title}')
+    def should_be_open_catalog_page_by_title(self, expected_title: str) -> None:
         """
         Проверка открытия указанной страницы каталога.
+
+        :param expected_title: ожидаемый заголовок страницы.
         """
 
         actual_title = self.find_element(*Locators.TITLE).text
-
-        if '&' in category_name or 'GIFT' in category_name:
-            expected_title = category_name.title()
-        else:
-            expected_title = category_name.capitalize()
 
         assert actual_title == expected_title, \
             f'Текущий заголовок страницы: {actual_title} не соответствует ожидаемому: {expected_title}'

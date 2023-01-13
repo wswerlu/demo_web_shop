@@ -1,5 +1,3 @@
-from random import choice
-
 from locators import HeaderLocators as Locators
 from utils.steps import step
 
@@ -49,30 +47,22 @@ class Header(BasePage):
         assert self.is_element_present(strategy, locator.format(email)), \
             f'В хедере не отображается email: {email}'
 
-    @step('Кликнуть по произвольной категории')
-    def click_on_random_category_and_get_its_name(self) -> str:
+    @step('Кликнуть по категории: "{category_name}"')
+    def click_on_category_with_name(self, category_name: str) -> None:
         """
         Клик по произвольной категории с получением имени категории, по которой был произведен клик.
 
-        :return: название категории, по которой был произведен клик.
+        :param category_name: название категории.
         """
 
-        category = choice(self.find_elements(*Locators.CATEGORIES))
+        strategy, locator = Locators.MAIN_CATEGORY_BY_SUBCATEGORY_NAME
 
-        if self.is_element_present_in_element(category, *Locators.SUBLIST_FIRST_LEVEL, timeout=2):
-            self.hover(category)
+        if self.is_element_present(strategy, locator.format(category_name), timeout=0):
+            main_category = self.find_element(strategy, locator.format(category_name), timeout=0)
+            self.hover(main_category)
 
-            sublist_categories = self.find_elements_in_element(category, *Locators.SUBLIST_CATEGORIES)
-            sublist_category = choice([x for x in sublist_categories if x.text != 'Camera, photo'])
-            sublist_category_name = sublist_category.text
-            sublist_category.click()
-
-            return sublist_category_name
-
-        category_name = category.text
-        category.click()
-
-        return category_name
+        strategy, locator = Locators.CATEGORY_BY_NAME
+        self.find_visible_element(strategy, locator.format(category_name), timeout=2).click()
 
     @step('Проверить, что в хедере отображается количество товара в корзине')
     def can_see_product_quantity_in_cart(self, expected_quantity: int = 1) -> None:
