@@ -42,7 +42,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
-        run: pytest --alluredir allure-results -n 4 --reruns 1 --reruns-delay 5
+        run: pytest --alluredir allure-results -n ${{ vars.THREADS }} --reruns 1 --reruns-delay 5
 
       - name: Generate allure report
         run: ~\scoop\apps\allure\2.20.1\bin\allure.bat generate allure-results
