@@ -18,3 +18,4 @@ class CatalogPageLocators:
     SORT_METHOD_LIST_OPTION_BY_NAME = (By.XPATH, ".//select[@id='products-orderby']//option[text()='{0}']")
     PAGE_SIZE_LIST = (By.ID, 'products-pagesize')
     PAGE_SIZE_LIST_OPTION_BY_NAME = (By.XPATH, ".//select[@id='products-pagesize']//option[text()='{0}']")
+    BUTTONS_BLOCK_BY_PRODUCT_NAME = (By.XPATH, './/a[text()="{0}"]/../..//div[@class="buttons"]')
