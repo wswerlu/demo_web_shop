@@ -44,7 +44,15 @@ class BasePage:
 
         :param element: элемент, до которого нужно проскроллить страницу.
         """
-        self.driver.execute_script('return arguments[0].scrollIntoView(true);', element)
+        self.driver.execute_script('arguments[0].scrollIntoView(false);', element)
+
+    def scroll_to_element_center(self, element) -> None:
+        """
+        Скролл страницы до центра указанного элемента.
+
+        :param element: элемент, до центра которого нужно проскроллить страницу.
+        """
+        self.driver.execute_script('arguments[0].scrollIntoView({block: "center"});', element)
 
     def is_element_present(self, strategy, locator, timeout=5) -> bool:
         """

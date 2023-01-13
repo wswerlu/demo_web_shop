@@ -130,6 +130,10 @@ class CatalogPage(BasePage):
         )
 
         for index in range(len(actually_sorted_products)):
+            self.scroll_to_buttons_block_for_product_with_name(
+                product_name=actually_sorted_products[index]['name'],
+            )  # scrolling to "Add to cart" button  for screenshot
+
             assert actually_sorted_products[index]['name'] == expected_sorted_products[index]['name'], \
                 f'Товар с наименованием {actually_sorted_products[index]["name"]} отсортирован неверно'
 
@@ -149,8 +153,21 @@ class CatalogPage(BasePage):
         )
 
         for index in range(len(actually_sorted_products)):
+            self.scroll_to_buttons_block_for_product_with_name(
+                product_name=actually_sorted_products[index]['name'],
+            )  # scrolling to "Add to cart" button  for screenshot
+
             assert actually_sorted_products[index]['actual_price'] == expected_sorted_products[index]['actual_price'], \
                 f'Товар с наименованием {actually_sorted_products[index]["name"]} отсортирован неверно'
+
+    def scroll_to_buttons_block_for_product_with_name(self, product_name: str) -> None:
+        """
+        Скролл страницы до блока кнопок у указанного товара.
+        """
+
+        strategy, locator = Locators.BUTTONS_BLOCK_BY_PRODUCT_NAME
+        add_to_cart_button = self.find_element(strategy, locator.format(product_name))
+        self.scroll_to_element(add_to_cart_button)
 
     @step('Выбрать размер страницы: {page_size}')
     def choose_page_size(self, page_size: int) -> None:
@@ -174,6 +191,11 @@ class CatalogPage(BasePage):
         """
 
         number_of_products = len(self.find_elements(*Locators.PRODUCTS))
+
+        # ------------- Scroll to center of page for screenshot ------------- #
+        body = self.find_element(*Locators.BODY)
+        self.scroll_to_element_center(body)
+        # ---------------------------------------------------------------- #
 
         assert number_of_products <= page_size, \
             f'Товаров на странице: {number_of_products} больше, чем размер страницы: {page_size}'
