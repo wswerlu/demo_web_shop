@@ -6,8 +6,8 @@ from data.data import (PRODUCTS_WHO_CAN_ADD_TO_WISHLIST,
                        PRODUCTS_WITHOUT_ATTRIBUTES)
 from pages import (CartPage, CatalogPage, CheckoutAsGuestPage,
                    CheckoutCompletedPage, CheckoutPage, Header, LoginPage,
-                   MainPage, ProductCardPage, RegistrationPage,
-                   RegistrationSuccessPage, WishlistPage)
+                   MainPage, NotificationBar, ProductCardPage,
+                   RegistrationPage, RegistrationSuccessPage, WishlistPage)
 from utils.generated_test_data import UserData
 
 # ------------------------------------------------- Фикстуры страниц ------------------------------------------------- #
@@ -72,6 +72,11 @@ def checkout_as_guest_page(browser):
 def wishlist_page(browser):
     return WishlistPage(browser)
 
+
+@fixture(scope='function')
+def notification_bar(browser):
+    return NotificationBar(browser)
+
 # -------------------------------------- Фикстуры для генерации тестовых данных -------------------------------------- #
 
 
@@ -130,7 +135,7 @@ def login_user(header, login_page, main_page, create_user):
 
 
 @fixture(scope='function')
-def add_product_to_cart_by_unauthorized_user(product_card_page):
+def add_product_to_cart_by_unauthorized_user(product_card_page, notification_bar):
     """
     Добавление товара в корзину неавторизованным пользователем.
     """
@@ -149,7 +154,8 @@ def add_product_to_cart_by_unauthorized_user(product_card_page):
             products_list.append(product)
 
             product_card_page.add_product_to_cart(quantity=product_quantity)
-            product_card_page.should_be_message_about_adding_product_to_cart()
+            notification_bar.should_be_message_about_adding_product_to_cart()
+            notification_bar.close_notification()
 
         return products_list
 
@@ -157,7 +163,7 @@ def add_product_to_cart_by_unauthorized_user(product_card_page):
 
 
 @fixture(scope='function')
-def add_product_to_cart_by_authorized_user(product_card_page, login_user):
+def add_product_to_cart_by_authorized_user(product_card_page, notification_bar, login_user):
     """
     Добавление товара в корзину авторизованным пользователем.
     """
@@ -176,7 +182,8 @@ def add_product_to_cart_by_authorized_user(product_card_page, login_user):
             products_list.append(product)
 
             product_card_page.add_product_to_cart(quantity=product_quantity)
-            product_card_page.should_be_message_about_adding_product_to_cart()
+            notification_bar.should_be_message_about_adding_product_to_cart()
+            notification_bar.close_notification()
 
         return {
             'products': products_list,
@@ -187,7 +194,7 @@ def add_product_to_cart_by_authorized_user(product_card_page, login_user):
 
 
 @fixture(scope='function')
-def add_product_to_wishlist_by_unauthorized_user(product_card_page):
+def add_product_to_wishlist_by_unauthorized_user(product_card_page, notification_bar):
     """
     Добавление товара в вишлист неавторизованным пользователем.
     """
@@ -206,7 +213,8 @@ def add_product_to_wishlist_by_unauthorized_user(product_card_page):
             products_list.append(product)
 
             product_card_page.add_product_to_wishlist(quantity=product_quantity)
-            product_card_page.should_be_message_about_adding_product_to_wishlist()
+            notification_bar.should_be_message_about_adding_product_to_wishlist()
+            notification_bar.close_notification()
 
         return products_list
 

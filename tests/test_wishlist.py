@@ -13,7 +13,8 @@ class TestCart:
     """
 
     @title('Добавление товара в вишлист неавторизованным пользователем')
-    def test_add_product_to_wishlist_by_unauthorized_user(self, header, product_card_page, wishlist_page):
+    def test_add_product_to_wishlist_by_unauthorized_user(self, header, product_card_page, wishlist_page,
+                                                          notification_bar):
         path = choice(PRODUCTS_WHO_CAN_ADD_TO_WISHLIST)
 
         product_card_page.open(path=path)
@@ -22,7 +23,8 @@ class TestCart:
         product = product_card_page.get_product_data()
 
         product_card_page.add_product_to_wishlist(is_new_sender=True)
-        product_card_page.should_be_message_about_adding_product_to_wishlist()
+        notification_bar.should_be_message_about_adding_product_to_wishlist()
+        notification_bar.close_notification()
         header.can_see_product_quantity_in_wishlist()
         header.go_to_wishlist_page()
 
