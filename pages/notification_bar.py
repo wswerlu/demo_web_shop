@@ -46,3 +46,11 @@ class NotificationBar(BasePage):
         expected_message_text = 'The product has been added to your wishlist'
 
         self.should_be_message_about_adding_product(expected_message_text=expected_message_text)
+
+    @step('Закрыть уведомление')
+    def close_notification(self) -> None:
+        """
+        Закрытие уведомления.
+        """
+
+        self.find_element_clickable(*Locators.CLOSE_NOTIFICATION).click()

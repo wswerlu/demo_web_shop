@@ -7,3 +7,4 @@ class NotificationBarLocators:
     """
 
     NOTIFICATION_ABOUT_ADDING_PRODUCT = (By.ID, 'bar-notification')
+    CLOSE_NOTIFICATION = (By.CSS_SELECTOR, "[id='bar-notification'] span.close")
