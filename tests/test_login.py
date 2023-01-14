@@ -33,3 +33,10 @@ class TestLogin:
         login_page.click_on_login_button()
 
         login_page.can_see_error_message_with_text(error_message=data_login_invaliddata[2])
+
+    @title('Переход на страницу авторизации из хедера')
+    def test_go_to_login_page_from_header(self, main_page, header, login_page):
+        main_page.open()
+
+        header.go_to_login_page()
+        login_page.should_be_open_login_page()
