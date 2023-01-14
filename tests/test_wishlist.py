@@ -41,3 +41,10 @@ class TestCart:
 
         wishlist_page.remove_product_from_wishlist(product_name=product_name)
         wishlist_page.should_be_empty_wishlist()
+
+    @title('Переход на страницу вишлиста из хедера')
+    def test_go_to_wishlist_page_from_header(self, main_page, header, wishlist_page):
+        main_page.open()
+
+        header.go_to_wishlist_page()
+        wishlist_page.should_be_open_wishlist_page()
