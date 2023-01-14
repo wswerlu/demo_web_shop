@@ -63,7 +63,7 @@ class CartPage(BasePage):
         product_names_in_cart = [x['name'] for x in self.get_products()]
 
         for product_name in product_names:
-            assert product_name in product_names_in_cart, f'В корзине нет товара "{product_name}"'
+            assert product_name in product_names_in_cart, f'В корзине нет товара {product_name!r}'
 
     @step('Удалить товар "{product_name}" из корзины')
     def remove_product_from_cart(self, product_name: str) -> None:

@@ -128,7 +128,7 @@ class Header(BasePage):
         product_names_in_cart = [x['name'] for x in self.get_products_in_flyout_cart()]
 
         for product_name in product_names:
-            assert product_name in product_names_in_cart, f'В корзине нет товара "{product_name}"'
+            assert product_name in product_names_in_cart, f'В корзине нет товара {product_name!r}'
 
     @step('Проверить, что в хедере отображается количество товара в вишлисте')
     def can_see_product_quantity_in_wishlist(self, expected_quantity: int = 1) -> None:

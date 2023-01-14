@@ -2,7 +2,7 @@ from random import choice
 
 from allure import epic, feature, title
 
-from data.data import PRODUCTS_WHO_CAN_ADD_TO_WISHLIST
+from data.data import PATH_OF_PRODUCTS_THAT_CAN_BE_ADDED_TO_WISHLIST
 
 
 @epic('Frontend')
@@ -15,7 +15,7 @@ class TestCart:
     @title('Добавление товара в вишлист неавторизованным пользователем')
     def test_add_product_to_wishlist_by_unauthorized_user(self, header, product_card_page, wishlist_page,
                                                           notification_bar):
-        path = choice(PRODUCTS_WHO_CAN_ADD_TO_WISHLIST)
+        path = choice(PATH_OF_PRODUCTS_THAT_CAN_BE_ADDED_TO_WISHLIST)
 
         product_card_page.open(path=path)
         product_card_page.should_be_open_product_card_page(path=path)
@@ -26,16 +26,16 @@ class TestCart:
         notification_bar.should_be_message_about_adding_product_to_wishlist()
         notification_bar.close_notification()
         header.can_see_product_quantity_in_wishlist()
-        header.go_to_wishlist_page()
+        header.open(path=wishlist_page.path)
 
         wishlist_page.should_be_open_wishlist_page()
         wishlist_page.should_be_product_in_wishlist(product_names=product['name'])
 
     @title('Удаление товара из вишлиста')
-    def test_remove_product_from_wishlist(self, header, wishlist_page, add_product_to_wishlist_by_unauthorized_user):
+    def test_remove_product_from_wishlist(self, wishlist_page, add_product_to_wishlist_by_unauthorized_user):
         product_name = add_product_to_wishlist_by_unauthorized_user()[0]['name']
 
-        header.go_to_wishlist_page()
+        wishlist_page.open(path=wishlist_page.path)
         wishlist_page.should_be_open_wishlist_page()
         wishlist_page.should_be_product_in_wishlist(product_names=product_name)
 

@@ -14,10 +14,20 @@ class CatalogPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    @step('Проверить, что открыта страница каталога: {expected_title}')
+    @step('Проверить, что открыта страница каталога c эндпоинтом: {path}')
+    def should_be_open_catalog_page(self, path: str) -> None:
+        """
+        Проверка открытия страницы каталога.
+
+        :param path: эндпоинт страницы каталога.
+        """
+
+        self.should_be_open_page_by_path(path=path)
+
+    @step('Проверить, что открыта страница каталога c заголовком: {expected_title}')
     def should_be_open_catalog_page_by_title(self, expected_title: str) -> None:
         """
-        Проверка открытия указанной страницы каталога.
+        Проверка открытия страницы каталога с указанным заголовком.
 
         :param expected_title: ожидаемый заголовок страницы.
         """

@@ -2,8 +2,8 @@ from random import choice
 
 from pytest import fixture
 
-from data.data import (PRODUCTS_WHO_CAN_ADD_TO_WISHLIST,
-                       PRODUCTS_WITHOUT_ATTRIBUTES)
+from data.data import (PATH_OF_PRODUCTS_THAT_CAN_BE_ADDED_TO_CART,
+                       PATH_OF_PRODUCTS_THAT_CAN_BE_ADDED_TO_WISHLIST)
 from pages import (CartPage, CatalogPage, CheckoutAsGuestPage,
                    CheckoutCompletedPage, CheckoutPage, Header, LoginPage,
                    MainPage, NotificationBar, ProductCardPage,
@@ -81,7 +81,7 @@ def notification_bar(browser):
 
 
 @fixture(scope='function')
-def create_user(header, registration_page, main_page):
+def create_user(header, registration_page):
     """
     Создание пользователя.
     """
@@ -92,8 +92,7 @@ def create_user(header, registration_page, main_page):
     email = user.email()
     password = user.password()
 
-    main_page.open()
-    header.go_to_register_page()
+    registration_page.open(path=registration_page.path)
     registration_page.fill_registration_form(
         is_random=False,
         firstname=firstname,
@@ -113,13 +112,12 @@ def create_user(header, registration_page, main_page):
 
 
 @fixture(scope='function')
-def login_user(header, login_page, main_page, create_user):
+def login_user(login_page, create_user):
     """
     Авторизация пользователя.
     """
 
-    main_page.open()
-    header.go_to_login_page()
+    login_page.open(path=login_page.path)
     login_page.fill_login_form(
         email=create_user['email'],
         password=create_user['password'],
@@ -149,11 +147,11 @@ def add_product_to_cart_by_unauthorized_user(product_card_page, notification_bar
         products_list = []
 
         for _ in range(quantity_of_products):
-            product_card_page.open(path=choice(PRODUCTS_WITHOUT_ATTRIBUTES))
+            product_card_page.open(path=choice(PATH_OF_PRODUCTS_THAT_CAN_BE_ADDED_TO_CART))
             product = product_card_page.get_product_data()
             products_list.append(product)
 
-            product_card_page.add_product_to_cart(quantity=product_quantity)
+            product_card_page.add_product_to_cart(quantity=product_quantity, is_new_sender=True)
             notification_bar.should_be_message_about_adding_product_to_cart()
             notification_bar.close_notification()
 
@@ -177,7 +175,7 @@ def add_product_to_cart_by_authorized_user(product_card_page, notification_bar, 
         products_list = []
 
         for _ in range(quantity_of_products):
-            product_card_page.open(path=choice(PRODUCTS_WITHOUT_ATTRIBUTES))
+            product_card_page.open(path=choice(PATH_OF_PRODUCTS_THAT_CAN_BE_ADDED_TO_CART))
             product = product_card_page.get_product_data()
             products_list.append(product)
 
@@ -208,11 +206,11 @@ def add_product_to_wishlist_by_unauthorized_user(product_card_page, notification
         products_list = []
 
         for _ in range(quantity_of_products):
-            product_card_page.open(path=choice(PRODUCTS_WHO_CAN_ADD_TO_WISHLIST))
+            product_card_page.open(path=choice(PATH_OF_PRODUCTS_THAT_CAN_BE_ADDED_TO_WISHLIST))
             product = product_card_page.get_product_data()
             products_list.append(product)
 
-            product_card_page.add_product_to_wishlist(quantity=product_quantity)
+            product_card_page.add_product_to_wishlist(quantity=product_quantity, is_new_sender=True)
             notification_bar.should_be_message_about_adding_product_to_wishlist()
             notification_bar.close_notification()
 

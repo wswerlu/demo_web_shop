@@ -1,10 +1,13 @@
 from mimesis.enums import CardType
 
-CATEGORIES_WITH_PRODUCTS_WHO_CAN_ADD_TO_CART = [
+CATEGORIES = [
     'Books',
+    'Computers',
     'Desktops',
     'Notebooks',
     'Accessories',
+    'Electronics',
+    'Camera, photo',
     'Cell phones',
     'Apparel & Shoes',
     'Digital downloads',
@@ -12,10 +15,40 @@ CATEGORIES_WITH_PRODUCTS_WHO_CAN_ADD_TO_CART = [
     'Gift Cards',
 ]
 
-PRODUCTS_WITHOUT_ATTRIBUTES = [
+PATH_OF_CATEGORIES_WITH_PRODUCTS = [
+    'books',
+    'desktops',
+    'notebooks',
+    'accessories',
+    'camera-photo',
+    'cell-phones',
+    'apparel-shoes',
+    'digital-downloads',
+    'jewelry',
+    'gift-cards',
+]
+
+PATH_OF_CATEGORIES_WITH_PRODUCTS_THAT_CAN_BE_ADDED_TO_CART = [
+    'books',
+    'desktops',
+    'notebooks',
+    'accessories',
+    'cell-phones',
+    'apparel-shoes',
+    'digital-downloads',
+    'jewelry',
+    'gift-cards',
+]
+
+PATH_OF_PRODUCTS_THAT_CAN_BE_ADDED_TO_CART = [
     'computing-and-internet',
     'fiction',
     'health',
+    'build-your-cheap-own-computer',
+    'build-your-own-computer',
+    'build-your-own-expensive-computer-2',
+    'simple-computer',
+    '141-inch-laptop',
     'copy-of-tcp-self-paced-training-2',
     'copy-of-copy-of-copy-of-copy-of-tcp-self-paced-training',
     'copy-of-tcp-self-paced-training',
@@ -23,13 +56,22 @@ PRODUCTS_WITHOUT_ATTRIBUTES = [
     'tcp',
     'copy-of-tcp-self-paced-training-3',
     'smartphone',
+    'phone-cover',
+    '50s-rockabilly-polka-dot-top-jr-plus-size',
+    'blue-and-green-sneaker',
     'blue-jeans',
     'casual-belt',
     'genuine-leather-handbag-with-cell-phone-holder-many-pockets',
+    'mens-wrinkle-free-long-sleeve',
     'album-3',
     'music-album-1',
     'music-2',
+    'create-it-yourself-jewelry',
     'black-white-diamond-heart',
+    '5-virtual-gift-card',
+    '25-virtual-gift-card',
+    '50-physical-gift-card',
+    '100-physical-gift-card',
 ]
 
 CREDIT_CARD_TYPE = {
@@ -39,7 +81,7 @@ CREDIT_CARD_TYPE = {
     'Discover': None,
 }
 
-PRODUCTS_WHO_CAN_ADD_TO_WISHLIST = [
+PATH_OF_PRODUCTS_THAT_CAN_BE_ADDED_TO_WISHLIST = [
     'health',
     'copy-of-tcp-self-paced-training-2',
     'copy-of-copy-of-copy-of-copy-of-tcp-self-paced-training',
