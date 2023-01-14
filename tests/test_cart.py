@@ -63,7 +63,7 @@ class TestCart:
         cart_page.should_be_product_in_cart(product_names=product_name)
 
     @title('Переход на страницу корзины из хедера')
-    def test_go_to_login_page_from_header(self, main_page, header, cart_page):
+    def test_go_to_cart_page_from_header(self, main_page, header, cart_page):
         main_page.open()
 
         header.go_to_cart_page()
