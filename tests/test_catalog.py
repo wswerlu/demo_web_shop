@@ -2,7 +2,7 @@ from random import choice
 
 from allure import epic, feature, title
 
-from data.data import PATH_OF_CATEGORIES_WITH_PRODUCTS
+from data.data import CATEGORIES, PATH_OF_CATEGORIES_WITH_PRODUCTS
 
 
 @epic('Frontend')
@@ -41,3 +41,12 @@ class TestCatalog:
 
         catalog_page.choose_page_size(page_size=data_catalog_display[0])
         catalog_page.should_be_number_of_products_displayed_per_page(page_size=data_catalog_display[0])
+
+    @title('Переход на страницу каталога из хедера')
+    def test_go_to_catalog_page_from_header(self, main_page, header, catalog_page):
+        category = choice(CATEGORIES)
+
+        main_page.open()
+
+        header.click_on_category_with_name(category_name=category)
+        catalog_page.should_be_open_catalog_page_by_title(expected_title=category)
