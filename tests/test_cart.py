@@ -61,3 +61,10 @@ class TestCart:
 
         header.can_see_product_quantity_in_wishlist(expected_quantity=0)
         cart_page.should_be_product_in_cart(product_names=product_name)
+
+    @title('Переход на страницу корзины из хедера')
+    def test_go_to_login_page_from_header(self, main_page, header, cart_page):
+        main_page.open()
+
+        header.go_to_cart_page()
+        cart_page.should_be_open_cart_page()
