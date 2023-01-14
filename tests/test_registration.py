@@ -36,3 +36,10 @@ class TestRegistration:
         registration_page.click_on_register_button()
 
         registration_page.can_see_error_message_with_text(expected_error_message=data_registration_emptyfields[6])
+
+    @title('Переход на страницу регистрации из хедера')
+    def test_go_to_registration_page_from_header(self, main_page, header, registration_page):
+        main_page.open()
+
+        header.go_to_register_page()
+        registration_page.should_be_open_registration_page()
