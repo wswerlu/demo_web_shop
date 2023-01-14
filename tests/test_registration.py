@@ -9,11 +9,8 @@ class TestRegistration:
     """
 
     @title('Регистрация пользователя с валидными данными')
-    def test_registration_user_with_valid_data(self, main_page, header, registration_page, registration_success_page):
-        main_page.open()
-        main_page.should_be_open_main_page()
-
-        header.go_to_register_page()
+    def test_registration_user_with_valid_data(self, registration_page, registration_success_page):
+        registration_page.open(path=registration_page.path)
         registration_page.should_be_open_registration_page()
 
         registration_page.fill_registration_form()
@@ -23,12 +20,8 @@ class TestRegistration:
         registration_success_page.should_be_confirm_register_message()
 
     @title('Регистрация пользователя с пустыми полями в форме регистрации')
-    def test_registration_user_with_empty_field(self, main_page, header, registration_page,
-                                                data_registration_emptyfields):
-        main_page.open()
-        main_page.should_be_open_main_page()
-
-        header.go_to_register_page()
+    def test_registration_user_with_empty_field(self, registration_page, data_registration_emptyfields):
+        registration_page.open(path=registration_page.path)
         registration_page.should_be_open_registration_page()
 
         registration_page.fill_registration_form(

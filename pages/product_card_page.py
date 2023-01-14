@@ -15,7 +15,7 @@ class ProductCardPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    @step('Проверить, что открыта страница карточки продукта')
+    @step('Проверить, что открыта страница карточки продукта с эндпоинтом: {path}')
     def should_be_open_product_card_page(self, path: str) -> None:
         """
         Проверка открытия страницы карточки продукта.

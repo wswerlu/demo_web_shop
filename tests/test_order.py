@@ -9,12 +9,12 @@ class TestOrder:
     """
 
     @title('Создание заказа c доставкой авторизованным пользователем, у которого в профиле не указан адрес')
-    def test_create_order_with_delivery_by_authorized_user_without_address(self, header, cart_page, checkout_page,
+    def test_create_order_with_delivery_by_authorized_user_without_address(self, cart_page, checkout_page,
                                                                            checkout_completed_page,
                                                                            add_product_to_cart_by_authorized_user):
         product_name = add_product_to_cart_by_authorized_user()['products'][0]['name']
 
-        header.go_to_cart_page()
+        cart_page.open(path=cart_page.path)
         cart_page.should_be_open_cart_page()
         cart_page.should_be_product_in_cart(product_names=product_name)
 
@@ -33,11 +33,11 @@ class TestOrder:
         checkout_completed_page.can_see_message_about_successfully_creating_order()
 
     @title('Создание заказа c самовывозом неавторизованным пользователем')
-    def test_create_order_with_pick_up_by_guest(self, header, cart_page, checkout_as_guest_page, checkout_page,
+    def test_create_order_with_pick_up_by_guest(self, cart_page, checkout_as_guest_page, checkout_page,
                                                 checkout_completed_page, add_product_to_cart_by_unauthorized_user):
         product_name = add_product_to_cart_by_unauthorized_user()[0]['name']
 
-        header.go_to_cart_page()
+        cart_page.open(path=cart_page.path)
         cart_page.should_be_open_cart_page()
         cart_page.should_be_product_in_cart(product_names=product_name)
 

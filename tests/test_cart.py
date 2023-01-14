@@ -2,7 +2,7 @@ from random import choice
 
 from allure import epic, feature, title
 
-from data.data import CATEGORIES_WITH_PRODUCTS_WHO_CAN_ADD_TO_CART
+from data.data import PATH_OF_PRODUCTS_THAT_CAN_BE_ADDED_TO_CART
 
 
 @epic('Frontend')
@@ -13,23 +13,19 @@ class TestCart:
     """
 
     @title('Добавление товара в корзину из карточки заказа авторизованным пользователем')
-    def test_add_product_to_cart_from_product_card_by_authorized_user(self, main_page, header, catalog_page,
-                                                                      product_card_page, cart_page, notification_bar,
-                                                                      login_user):
-        category_name = choice(CATEGORIES_WITH_PRODUCTS_WHO_CAN_ADD_TO_CART)
+    def test_add_product_to_cart_from_product_card_by_authorized_user(self, header, product_card_page, cart_page,
+                                                                      notification_bar, login_user):
+        product_path = choice(PATH_OF_PRODUCTS_THAT_CAN_BE_ADDED_TO_CART)
 
-        header.click_on_category_with_name(category_name=category_name)
-        catalog_page.should_be_open_catalog_page_by_title(expected_title=category_name)
-
-        product = choice(catalog_page.get_available_products())
-        catalog_page.go_to_product_card_page(product_id=product['id'])
-        product_card_page.should_be_open_product_card_page(path=product['path'])
+        product_card_page.open(path=product_path)
+        product_card_page.should_be_open_product_card_page(path=product_path)
+        product = product_card_page.get_product_data()
 
         product_card_page.add_product_to_cart()
         notification_bar.should_be_message_about_adding_product_to_cart()
         notification_bar.close_notification()
         header.can_see_product_quantity_in_cart()
-        header.go_to_cart_page()
+        header.open(path=cart_page.path)
 
         cart_page.should_be_open_cart_page()
         cart_page.should_be_product_in_cart(product_names=product['name'])
@@ -44,7 +40,7 @@ class TestCart:
     def test_remove_product_from_cart(self, main_page, header, cart_page, add_product_to_cart_by_unauthorized_user):
         product_name = add_product_to_cart_by_unauthorized_user()[0]['name']
 
-        header.go_to_cart_page()
+        cart_page.open(path=cart_page.path)
         cart_page.should_be_open_cart_page()
         cart_page.should_be_product_in_cart(product_names=product_name)
 
@@ -56,7 +52,7 @@ class TestCart:
                                                add_product_to_wishlist_by_unauthorized_user):
         product_name = add_product_to_wishlist_by_unauthorized_user()[0]['name']
 
-        header.go_to_wishlist_page()
+        wishlist_page.open(path=wishlist_page.path)
         wishlist_page.should_be_open_wishlist_page()
         wishlist_page.should_be_product_in_wishlist(product_names=product_name)
 
